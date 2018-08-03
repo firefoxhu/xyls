@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>默认登录页面</title>
+</head>
+<body>
+<h2 align="center">默认登录页面</h2>
+
+<div style="text-align: center;border: 1px solid #ccc;">
+    <h2 align="center">请在application.yml配置正确的信息</h2>
+    <h2 align="center">xyl.security.loginPage</h2>
+    <h2 align="center">我们可以配置需要跳转的html静态网页</h2>
+    <h2 align="center">我们可以配置需要重定向的url从模板中渲染出来页面</h2>
+    <h2 align="center">验证码的大小可以传递参数height\width来来控制 </h2>
+    <h2 align="center">验证码的生成器可以实现接口ValidateCodeGenerator 并提供名字为imageCodeGenerator可覆盖原来的</h2>
+    <h2 align="center">用户名为：username 密码为：password 图片验证码为：imageCode 记住我为：remember-me 这些且不可乱改</h2>
+    <form action="/authentication/form" method="post" style="float: left" >
+        <table>
+            <tr>
+                <td>用户名:</td><td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <td>密码:</td><td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td>图形验证码:</td><td><input type="text" name="imageCode"><img src="/code/image"></td>
+            </tr>
+            <tr>
+                <td colspan='2'> </td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit">登录</button></td>
+            </tr>
+        </table>
+    </form>
+
+    <form action="/authentication/mobile" method="post" style="float: right" >
+        <table>
+            <tr>
+                <td>手机号:</td><td><input type="text" name="mobile" value="18721663640"></td>
+            </tr>
+            <tr>
+                <td>短信验证码:</td><td><input type="text" name="smsCode"><a href="/code/sms?mobile=18721663640 ">发送验证码</a>
+            </tr>
+            <tr>
+                <td colspan='2'> </td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit">登录</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div style="display: block;clear: both;"></div>
+<div style="border: 1px solid blue;">
+    <h2 align="center">社交登录</h2>
+    <a href="/qqLogin/callback.do">QQ登录(auth是springSocial默认的拦截，qq是providerId)</a><br/>
+    <a href="/qqLogin/weixin">QQ登录(auth是springSocial默认的拦截，qq是providerId)</a>
+</div>
+
+
+</body>
+</html>

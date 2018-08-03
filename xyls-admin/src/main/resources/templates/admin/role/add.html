@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>信阳罗森机电</title>
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+
+<form class="layui-form layui-row layui-col-space10">
+	<blockquote class="layui-elem-quote title"><i class="seraph icon-caidan"></i>角色</blockquote>
+	<div class="layui-col-md12 layui-col-xs12">
+		<div class="layui-row layui-col-space12">
+			<div class="layui-form-item magt3">
+				<label class="layui-form-label">角色名称：</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input roleName" lay-verify="required" placeholder="请输入角色名称">
+				</div>
+			</div>
+			<div class="layui-form-item magt3">
+				<label class="layui-form-label">角色描述</label>
+				<div class="layui-input-block">
+					<textarea placeholder="请输入角色描述" lay-verify="required" class="layui-textarea abstract roleDescription"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<hr class="layui-bg-gray" />
+		<div class="layui-row layui-col-space12">
+			<div class="layui-center">
+				<a class="layui-btn layui-btn-sm" lay-filter="addRole" lay-submit><i class="layui-icon">&#xe609;</i>添加</a>
+			</div>
+		</div>
+		<hr class="layui-bg-gray" />
+	</div>
+</form>
+	<script type="text/javascript"  src="/layui/layui.js"></script>
+	<script type="text/javascript" src="/js/role/add.js"></script>
+</body>
+</html>

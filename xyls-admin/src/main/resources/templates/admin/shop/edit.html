@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>信阳罗森机电</title>
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+
+<form class="layui-form layui-row layui-col-space10">
+	<blockquote class="layui-elem-quote title"><i class="seraph icon-caidan"></i>门店</blockquote>
+	<div class="layui-col-md12 layui-col-xs12">
+		<div class="layui-row layui-col-space12">
+			<div class="layui-col-md9 layui-col-xs7">
+				<input type="text" style="display: none" value="${data.id}" class="shopId" readonly="readonly"/>
+				<div class="layui-form-item magt3">
+					<label class="layui-form-label">门店名称</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input shopName" lay-verify="required" value="${data.name}" placeholder="请输入门店名称">
+					</div>
+				</div>
+
+				<div class="layui-form-item magt3">
+					<label class="layui-form-label">门店座机</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input shopTelephone" value="${data.telephone}"  placeholder="请输入门店座机（非必填）">
+					</div>
+				</div>
+
+				<div class="layui-form-item magt3">
+					<label class="layui-form-label">是否上门</label>
+					<div class="layui-input-inline">
+						<select class="shopGoOut" lay-verify="required" data-value="${data.goOut}">
+							<option value="">请选择</option>
+							<option value="0" selected="">上门服务</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item magt3">
+					<label class="layui-form-label">门店描述</label>
+					<div class="layui-input-block">
+						<textarea placeholder="请输入门店详细" lay-verify="required" class="layui-textarea abstract shopDescription">${data.description}</textarea>
+					</div>
+				</div>
+
+				<div class="layui-form-item magt3">
+					<label class="layui-form-label">地理坐标X</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input shopX" lay-verify="required" value="${data.positionX}" placeholder="地理坐标X">
+					</div>
+				</div>
+				<div class="layui-form-item magt3">
+					<label class="layui-form-label">地理坐标Y</label>
+					<div class="layui-input-block">
+						<input type="text" class="layui-input shopY" lay-verify="required" value="${data.positionY}"  placeholder="地理坐标Y">
+					</div>
+				</div>
+
+
+				<div class="layui-form-item magt3">
+					<label class="layui-form-label">选择位置</label>
+					<div class="layui-input-inline">
+						<select class="shopProvince" lay-verify="required" data-value="${data.province}">
+							<option value="">请选择省</option>
+							<option value="河南省" selected="">河南省</option>
+						</select>
+					</div>
+					<div class="layui-input-inline">
+						<select class="shopCity" lay-verify="required" data-value="${data.city}">
+							<option value="">请选择市</option>
+							<option value="信阳市" selected="">信阳市</option>
+						</select>
+					</div>
+					<div class="layui-input-inline">
+						<select class="shopArea" lay-verify="required" data-value="${data.area}">
+							<option value="">请选择县/区</option>
+							<option value="平桥区">平桥区</option>
+							<option value="浉河区">浉河区</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item magt3">
+					<label class="layui-form-label">详细地址描述：</label>
+					<div class="layui-input-block">
+						<textarea placeholder="请输入详细的街道地址" lay-verify="required" class="layui-textarea abstract shopStreet">${data.street}</textarea>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-col-md3 layui-col-xs5 imgBox" data-value="${data.picture}">
+				<div class="layui-upload-list thumbBox mag0 magt3">
+					<img class="layui-upload-img thumbImg" src="">
+				</div>
+				<div class="layui-upload-list thumbBox mag0 magt3">
+					<img class="layui-upload-img thumbImg" src="">
+				</div>
+				<div class="layui-upload-list thumbBox mag0 magt3">
+					<img class="layui-upload-img thumbImg" src="">
+				</div>
+			</div>
+		</div>
+
+		<hr class="layui-bg-gray" />
+		<div class="layui-row layui-col-space12">
+			<div class="layui-center">
+				<a class="layui-btn layui-btn-sm" lay-filter="editShop" lay-submit><i class="layui-icon">&#xe609;</i>修改</a>
+				<a class="layui-btn layui-btn-sm restImg">重置缩略图</a>
+			</div>
+		</div>
+		<hr class="layui-bg-gray" />
+	</div>
+</form>
+<script type="text/javascript"  src="/layui/layui.js"></script>
+<script type="text/javascript" src="/js/shop/edit.js"></script>
+</body>
+</html>

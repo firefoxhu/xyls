@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>默认注册页面</title>
+</head>
+<body>
+<h2 align="center">默认注册页面</h2>
+
+<div style="text-align: center;border: 1px solid #ccc;">
+    <h2 align="center">请在application.yml配置正确的信息</h2>
+    <h2 align="center">xyl.security.browser.signUpUrl</h2>
+    <h2 align="center">此种方法为第三方登录后强制要求绑定用户或者注册用户  （ 为了友好我们可以在后台自己给用户注册一个账号绑定）</h2>
+    <form action="/user/regist" method="post" style="float: left" >
+        <table>
+            <tr>
+                <td>用户名:</td><td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <td>密码:</td><td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td>图形验证码:</td><td><input type="text" name="imageCode"><img src="/code/image"></td>
+            </tr>
+            <tr>
+                <td colspan='2'> </td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit" name="type" value="regist">注册</button>
+                    <button type="submit" name="type" value="binding">绑定</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
