@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
 
 
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -42,7 +41,6 @@
             </plugin>
         </plugins>
     </build>
-
 
 
     <modules>

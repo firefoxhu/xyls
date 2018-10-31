@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.xyls.rbac.authorize;
 
@@ -17,16 +17,16 @@ import org.springframework.stereotype.Component;
 @Order(Integer.MAX_VALUE)
 public class RbacAuthorizeConfigProvider implements AuthorizeConfigProvider {
 
-	/* (non-Javadoc)
-	 * @see com.imooc.security.core.authorize.AuthorizeConfigProvider#config(org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry)
-	 */
-	@Override
-	public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
-		config
-			.antMatchers(HttpMethod.GET,				"/wechat/**","/json/navs.json").permitAll()
-			.anyRequest()
-				.access("@rbacService.hasPermission(request, authentication)");
-		return true;
-	}
+    /* (non-Javadoc)
+     * @see com.imooc.security.core.authorize.AuthorizeConfigProvider#config(org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry)
+     */
+    @Override
+    public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
+        config
+                .antMatchers(HttpMethod.GET, "/wechat/**","/app/**", "/json/navs.json").permitAll()
+                .anyRequest()
+                .access("@rbacService.hasPermission(request, authentication)");
+        return true;
+    }
 
 }

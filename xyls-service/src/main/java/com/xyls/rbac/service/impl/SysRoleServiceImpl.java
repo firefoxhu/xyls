@@ -24,8 +24,8 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public SysRoleInfo create(SysRoleInfo sysRoleInfo) {
 
-        SysRole sysRole=new SysRole();
-        sysRole.setRoleId(UUID.randomUUID().toString().replaceAll("-",""));
+        SysRole sysRole = new SysRole();
+        sysRole.setRoleId(UUID.randomUUID().toString().replaceAll("-", ""));
         sysRole.setRoleName(sysRoleInfo.getRoleName());
         sysRoleRepository.save(sysRole);
         return sysRoleInfo;
@@ -34,10 +34,10 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public SysRoleInfo getInfo(String roleId) throws InvocationTargetException, IllegalAccessException {
 
-       SysRole sysRole=  sysRoleRepository.findOne(roleId);
+        SysRole sysRole = sysRoleRepository.findOne(roleId);
 
         SysRoleInfo sysRoleInfo = new SysRoleInfo();
-        BeanUtils.copyProperties(sysRoleInfo,sysRole);
+        BeanUtils.copyProperties(sysRoleInfo, sysRole);
 
         return sysRoleInfo;
     }

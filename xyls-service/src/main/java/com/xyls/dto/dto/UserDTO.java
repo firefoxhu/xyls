@@ -32,7 +32,7 @@ public class UserDTO {
     private String status;
 
     //
-    private String userCenIntegral="0";
+    private String userCenIntegral = "0";
 
     private String userCenLevel;
 

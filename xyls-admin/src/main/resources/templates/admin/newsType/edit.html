@@ -1,89 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8"/>
-	<title>信阳罗森机电</title>
-	<meta name="renderer" content="webkit"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<meta name="format-detection" content="telephone=no"/>
-	<link rel="stylesheet" href="/layui/css/layui.css" media="all" />
-	<link rel="stylesheet" href="/css/public.css" media="all" />
+    <meta charset="utf-8"/>
+    <title>信阳罗森机电</title>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/public.css" media="all"/>
 </head>
 <body class="childrenBody">
 
 <form class="layui-form layui-row layui-col-space10">
-	<blockquote class="layui-elem-quote title"><i class="seraph icon-caidan"></i> 类型</blockquote>
-	<div class="layui-col-md12 layui-col-xs12">
-		<div class="layui-row layui-col-space12">
-			<div class="layui-col-md9 layui-col-xs7">
+    <blockquote class="layui-elem-quote title"><i class="seraph icon-caidan"></i> 类型</blockquote>
+    <div class="layui-col-md12 layui-col-xs12">
+        <div class="layui-row layui-col-space12">
+            <div class="layui-col-md9 layui-col-xs7">
 
-				<div class="layui-form-item magt3">
-					<label class="layui-form-label">类型ID</label>
-					<div class="layui-input-block">
-						<input type="text" class="layui-input newsTypeId" lay-verify="required" value="${data.newsTypeId}" placeholder="请输入类型名称" readonly="readonly">
-					</div>
-				</div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">类型ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input newsTypeId" lay-verify="required"
+                               value="${data.newsTypeId}" placeholder="请输入类型名称" readonly="readonly">
+                    </div>
+                </div>
 
-				<div class="layui-form-item magt3">
-					<label class="layui-form-label">类型名称</label>
-					<div class="layui-input-block">
-						<input type="text" class="layui-input newsTypeName" lay-verify="required" value="${data.newsTypeName}" placeholder="请输入类型名称">
-					</div>
-				</div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">类型名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input newsTypeName" lay-verify="required"
+                               value="${data.newsTypeName}" placeholder="请输入类型名称">
+                    </div>
+                </div>
 
-				<div class="layui-form-item magt3">
-					<label class="layui-form-label">父类类型</label>
-					<div class="layui-input-block">
-						<select class="newsTypeParentId"   lay-verify="required" readonly="readonly" data-parent="${data.newsTypeParentId}">
-							<option value="">请输入选择栏目</option>
-							<#list class as x>
-								<option value="${x.newsClsId}">${x.newsClsName}</option>
-							</#list>
-						</select>
-					</div>
-				</div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">父类类型</label>
+                    <div class="layui-input-block">
+                        <select class="newsTypeParentId" lay-verify="required" readonly="readonly"
+                                data-parent="${data.newsTypeParentId}">
+                            <option value="">请输入选择栏目</option>
+                            <#list class as x>
+                            <option value="${x.newsClsId}">${x.newsClsName}</option>
+                        </#list>
+                        </select>
+                    </div>
+                </div>
 
-				<div class="layui-form-item magt3">
-					<label class="layui-form-label">导航网址</label>
-					<div class="layui-input-block">
-						<input type="text" class="layui-input newsTypeNavigationUrl" value="${data.newsTypeNavigationUrl!}"  placeholder="请输入栏目网址导航">
-					</div>
-				</div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">导航网址</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input newsTypeNavigationUrl"
+                               value="${data.newsTypeNavigationUrl!}" placeholder="请输入栏目网址导航">
+                    </div>
+                </div>
 
-				<div class="layui-form-item magt3">
-					<label class="layui-form-label">栏目摘要</label>
-					<div class="layui-input-block">
-						<textarea placeholder="请输入内容摘要" class="layui-textarea abstract newsTypeTitle">${data.newsTypeTitle!}</textarea>
-					</div>
-				</div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">栏目摘要</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入内容摘要" class="layui-textarea abstract newsTypeTitle">${data.newsTypeTitle!}</textarea>
+                    </div>
+                </div>
 
-				<div class="layui-form-item magt3">
-					<label class="layui-form-label">修改排序时间</label>
-					<div class="layui-input-block">
-						<input type="text" class="layui-input createTime" value="${data.createTime!}"  placeholder="请输入排序时间">
-					</div>
-				</div>
-			</div>
-			<div class="layui-col-md3 layui-col-xs5">
-				<div class="layui-upload-list thumbBox mag0 magt3">
-					<img class="layui-upload-img thumbImg" src="${data.newsTypeThumbnail}">
-				</div>
-			</div>
-		</div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">修改排序时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input createTime" value="${data.createTime!}"
+                               placeholder="请输入排序时间">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md3 layui-col-xs5">
+                <div class="layui-upload-list thumbBox mag0 magt3">
+                    <img class="layui-upload-img thumbImg" src="${data.newsTypeThumbnail}">
+                </div>
+            </div>
+        </div>
 
-		<hr class="layui-bg-gray" />
-		<div class="layui-row layui-col-space12">
-			<div class="layui-center">
-				<a class="layui-btn layui-btn-sm" lay-filter="editNewsType" lay-submit><i class="layui-icon">&#xe609;</i>修改</a>
-			</div>
-		</div>
-		<hr class="layui-bg-gray" />
-	</div>
+        <hr class="layui-bg-gray"/>
+        <div class="layui-row layui-col-space12">
+            <div class="layui-center">
+                <a class="layui-btn layui-btn-sm" lay-filter="editNewsType" lay-submit><i
+                        class="layui-icon">&#xe609;</i>修改</a>
+            </div>
+        </div>
+        <hr class="layui-bg-gray"/>
+    </div>
 </form>
-	<script type="text/javascript"  src="/layui/layui.js"></script>
-	<script type="text/javascript" src="/js/newsType/edit.js"></script>
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/js/newsType/edit.js"></script>
 </body>
 </html>

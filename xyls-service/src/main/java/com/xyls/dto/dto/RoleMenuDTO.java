@@ -12,6 +12,6 @@ public class RoleMenuDTO {
 
     private String roleName;
 
-    private Map<String,List<ResourceTree>> map;
+    private Map<String, List<ResourceTree>> map;
 
 }

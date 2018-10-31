@@ -1,4 +1,5 @@
 package com.xyls.service.impl;
+
 import com.xyls.constant.TableConst;
 import com.xyls.dto.form.UserForm;
 import com.xyls.enums.ResponseEnum;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserAdminServiceImpl implements UserAdminService{
+public class UserAdminServiceImpl implements UserAdminService {
 
     @Autowired
     private UserRepository userRepository;
@@ -37,7 +38,7 @@ public class UserAdminServiceImpl implements UserAdminService{
 
     @Override
     public Page<User> query(Pageable pageable) {
-        Page<User>  page  = userRepository.findAll(pageable);
+        Page<User> page = userRepository.findAll(pageable);
         return page;
     }
 
@@ -45,38 +46,38 @@ public class UserAdminServiceImpl implements UserAdminService{
     @Transactional
     public void save(UserForm userForm, String userId) throws Exception {
 
-        User existUser= userRepository.findByUserName(userForm.getUserName());
-        if(!StringUtils.isEmpty(existUser)){
+        User existUser = userRepository.findByUserName(userForm.getUserName());
+        if (!StringUtils.isEmpty(existUser)) {
             throw new Exception("该用户已经被占用！");
         }
 
-        if(!org.apache.commons.lang3.StringUtils.equals(userForm.getUserPassword(),userForm.getReUserPassword())){
+        if (!org.apache.commons.lang3.StringUtils.equals(userForm.getUserPassword(), userForm.getReUserPassword())) {
             throw new Exception("2次输入的密码不一致！");
         }
 
         User user = new User();
-        BeanUtils.copyProperties(user,userForm);
+        BeanUtils.copyProperties(user, userForm);
         user.setUserId(GenKeyUtil.key());
         user.setStatus(TableConst.NORMAL);
-        if(user.getUserHeaderImage() == null)
-        user.setUserHeaderImage("http://www.luosen365.com/images/face.png");
+        if (user.getUserHeaderImage() == null)
+            user.setUserHeaderImage("http://www.luosen365.com/images/face.png");
         user.setCreatePerson(userId);
         user.setCreateTime(DateUtil.todayDateTime());
         user.setCreateDescription("后台增加用户！");
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
         userRepository.save(user);
 
-        this.bindRole(userForm.getRoles(),userForm.getUserId());
+        this.bindRole(userForm.getRoles(), userForm.getUserId());
 
     }
 
     @Override
     @Transactional
     public void remove(String ids) {
-        if(org.apache.commons.lang3.StringUtils.isEmpty(ids)){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"id为空异常刷新页面重试！");
+        if (org.apache.commons.lang3.StringUtils.isEmpty(ids)) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "id为空异常刷新页面重试！");
         }
-        for(String item:ids.split(",") ){
+        for (String item : ids.split(",")) {
             userRepository.delete(item);
             userSysRoleRepository.deleteByUserId(item);
         }
@@ -91,11 +92,11 @@ public class UserAdminServiceImpl implements UserAdminService{
             throw new Exception("参数非法请刷新页面重试！");
         }
 
-        User user =userRepository.findOne(userForm.getUserId());
+        User user = userRepository.findOne(userForm.getUserId());
 
         String password = user.getUserPassword();
 
-        BeanUtils.copyProperties(user,userForm);
+        BeanUtils.copyProperties(user, userForm);
 
         user.setModifyTime(DateUtil.todayDateTime());
         user.setModifyPerson(userId);
@@ -105,7 +106,7 @@ public class UserAdminServiceImpl implements UserAdminService{
 
         userSysRoleRepository.deleteByUserId(userForm.getUserId());
 
-        this.bindRole(userForm.getRoles(),userForm.getUserId());
+        this.bindRole(userForm.getRoles(), userForm.getUserId());
     }
 
     @Override
@@ -116,7 +117,7 @@ public class UserAdminServiceImpl implements UserAdminService{
     @Override
     public UserForm queryWithRoles(String id) throws InvocationTargetException, IllegalAccessException {
 
-        User  user = this.query(id);
+        User user = this.query(id);
 
         if (StringUtils.isEmpty(user)) {
             try {
@@ -126,11 +127,11 @@ public class UserAdminServiceImpl implements UserAdminService{
             }
         }
         UserForm userForm = new UserForm();
-        BeanUtils.copyProperties(userForm,user);
+        BeanUtils.copyProperties(userForm, user);
         List<UserSysRole> userSysRoles = userSysRoleRepository.findByUserId(id);
         String roleIds = "";
-        for(UserSysRole userSysRole:userSysRoles){
-            roleIds +=userSysRole.getRoleId();
+        for (UserSysRole userSysRole : userSysRoles) {
+            roleIds += userSysRole.getRoleId();
         }
         userForm.setRoles(roleIds);
 
@@ -138,13 +139,13 @@ public class UserAdminServiceImpl implements UserAdminService{
     }
 
 
-    private  void   bindRole(String roleStr,String userId){
-        if(!StringUtils.isEmpty(roleStr)){
+    private void bindRole(String roleStr, String userId) {
+        if (!StringUtils.isEmpty(roleStr)) {
             String[] roles = roleStr.split(",");
             List<UserSysRole> userSysRoles = new ArrayList<>();
 
-            for(String item:roles){
-                UserSysRole  userSysRole = new UserSysRole();
+            for (String item : roles) {
+                UserSysRole userSysRole = new UserSysRole();
                 userSysRole.setUserRoleId(GenKeyUtil.key());
                 userSysRole.setRoleId(item);
                 userSysRole.setUserId(userId);

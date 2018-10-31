@@ -15,7 +15,8 @@ import java.lang.reflect.InvocationTargetException;
 public interface UserAdminService {
 
     /**
-     获取所有的用户信息
+     * 获取所有的用户信息
+     *
      * @param pageable
      * @return
      */
@@ -23,22 +24,24 @@ public interface UserAdminService {
 
     /**
      * 新增用户
+     *
      * @param userForm
      * @param userId
      */
-    void save(UserForm userForm,String userId) throws Exception;
+    void save(UserForm userForm, String userId) throws Exception;
 
     /**
      * 删除一条或者多条信息
+     *
      * @param ids
      */
-    void  remove(String ids);
+    void remove(String ids);
 
 
     /**
      * 修改信息
      */
-    void  modify(UserForm userForm, String userId) throws Exception;
+    void modify(UserForm userForm, String userId) throws Exception;
 
     /**
      * 根据id查找

@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Autowired
-    private SysRoleResourceRepository  sysRoleResourceRepository;
+    private SysRoleResourceRepository sysRoleResourceRepository;
 
 
     @Autowired
@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo create(UserInfo userInfo) {
 
-        User user=new User();
-        user.setUserId(UUID.randomUUID().toString().replaceAll("-",""));
+        User user = new User();
+        user.setUserId(UUID.randomUUID().toString().replaceAll("-", ""));
         user.setUserName(userInfo.getUsername());
         user.setUserPassword(passwordEncoder.encode(userInfo.getPassword()));
         userRepository.save(user);
@@ -55,21 +55,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfo getInfo(String userId) throws InvocationTargetException, IllegalAccessException {
-       User user= userRepository.findByUserName(userId);
-        UserInfo userInfo=null;
-       if(!org.springframework.util.StringUtils.isEmpty(user)){
-           userInfo=new UserInfo();
+        User user = userRepository.findByUserName(userId);
+        UserInfo userInfo = null;
+        if (!org.springframework.util.StringUtils.isEmpty(user)) {
+            userInfo = new UserInfo();
 
-           BeanUtils.copyProperties(userInfo,user);
+            BeanUtils.copyProperties(userInfo, user);
 
-           userInfo.setPassword(user.getUserPassword());
-       }
+            userInfo.setPassword(user.getUserPassword());
+        }
 
-       return userInfo;
+        return userInfo;
     }
 
     /**
      * 加载用户的所有信息
+     *
      * @param userId
      * @return
      */
@@ -77,45 +78,45 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo loadUserInfo(String userId) {
 
-        UserInfo  userInfo = new UserInfo();
+        UserInfo userInfo = new UserInfo();
 
         //获取用户的所有角色信息（用户角色关联表）
-        List<UserSysRole> userSysRoles=userSysRoleRepository.findByUserId(userId);
+        List<UserSysRole> userSysRoles = userSysRoleRepository.findByUserId(userId);
 
-        if(!CollectionUtils.isEmpty(userSysRoles)){
-            String[] inRoleIds=new String[userSysRoles.size()];
-            int i=0;
-            for(UserSysRole userSysRole:userSysRoles){
-                inRoleIds[i]= userSysRole.getRoleId();
+        if (!CollectionUtils.isEmpty(userSysRoles)) {
+            String[] inRoleIds = new String[userSysRoles.size()];
+            int i = 0;
+            for (UserSysRole userSysRole : userSysRoles) {
+                inRoleIds[i] = userSysRole.getRoleId();
                 i++;
             }
 
-            List<SysRole> sysRoles=sysRoleRepository.findByRoleId(inRoleIds);
+            List<SysRole> sysRoles = sysRoleRepository.findByRoleId(inRoleIds);
             /**
              * 添加到用户信息集合里
              */
             userInfo.setSysRoles(sysRoles);
 
             //查询用户的角色资源信息（角色资源关联表）
-           List<SysRoleResource> sysRoleResources=sysRoleResourceRepository.findByRoleId(inRoleIds);
+            List<SysRoleResource> sysRoleResources = sysRoleResourceRepository.findByRoleId(inRoleIds);
 
-           if(!CollectionUtils.isEmpty(sysRoleResources)){
-                String[] inResourceIds=new String[sysRoleResources.size()];
-                i=0;
-                for (SysRoleResource sysRoleResource:sysRoleResources){
-                    inResourceIds[i]=sysRoleResource.getResourceId();
+            if (!CollectionUtils.isEmpty(sysRoleResources)) {
+                String[] inResourceIds = new String[sysRoleResources.size()];
+                i = 0;
+                for (SysRoleResource sysRoleResource : sysRoleResources) {
+                    inResourceIds[i] = sysRoleResource.getResourceId();
                     i++;
                 }
 
                 //查询资源信息
-                List<SysResource> sysResources=sysResourceRepository.findByResourceId(inResourceIds);
+                List<SysResource> sysResources = sysResourceRepository.findByResourceId(inResourceIds);
 
-               /**
-                * 将权限加到集合中
-                */
-               userInfo.setSysResources(sysResources);
+                /**
+                 * 将权限加到集合中
+                 */
+                userInfo.setSysResources(sysResources);
 
-           }
+            }
         }
 
         return userInfo;

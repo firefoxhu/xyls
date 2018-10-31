@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.xyls.browser.session;
 
@@ -21,113 +21,112 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * 抽象的session失效处理器
- * 
- * @author zhailiang
  *
+ * @author zhailiang
  */
 public class AbstractSessionStrategy {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
-	/**
-	 * 跳转的url
-	 */
-	private String destinationUrl;
-	/**
-	 * 系统配置信息
-	 */
-	private SecurityProperties securityPropertie;
-	/**
-	 * 重定向策略
-	 */
-	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-	/**
-	 * 跳转前是否创建新的session
-	 */
-	private boolean createNewSession = true;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    /**
+     * 跳转的url
+     */
+    private String destinationUrl;
+    /**
+     * 系统配置信息
+     */
+    private SecurityProperties securityPropertie;
+    /**
+     * 重定向策略
+     */
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    /**
+     * 跳转前是否创建新的session
+     */
+    private boolean createNewSession = true;
 
-	private ObjectMapper objectMapper = new ObjectMapper();
-
-
-	public AbstractSessionStrategy(SecurityProperties securityPropertie) {
-		String invalidSessionUrl = securityPropertie.getBrowser().getSession().getSessionInvalidUrl();
-		Assert.isTrue(UrlUtils.isValidRedirectUrl(invalidSessionUrl), "url must start with '/' or with 'http(s)'");
-		Assert.isTrue(StringUtils.endsWithIgnoreCase(invalidSessionUrl, ".html"), "url must end with '.html'");
-		this.destinationUrl = invalidSessionUrl;
-		this.securityPropertie = securityPropertie;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.springframework.security.web.session.InvalidSessionStrategy#
-	 * onInvalidSessionDetected(javax.servlet.http.HttpServletRequest,
-	 * javax.servlet.http.HttpServletResponse)
-	 */
-	protected void onSessionInvalid(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private ObjectMapper objectMapper = new ObjectMapper();
 
 
-		logger.info("session失效");
-		String sourceUrl = request.getRequestURI();
+    public AbstractSessionStrategy(SecurityProperties securityPropertie) {
+        String invalidSessionUrl = securityPropertie.getBrowser().getSession().getSessionInvalidUrl();
+        Assert.isTrue(UrlUtils.isValidRedirectUrl(invalidSessionUrl), "url must start with '/' or with 'http(s)'");
+        Assert.isTrue(StringUtils.endsWithIgnoreCase(invalidSessionUrl, ".html"), "url must end with '.html'");
+        this.destinationUrl = invalidSessionUrl;
+        this.securityPropertie = securityPropertie;
+    }
 
-		if (createNewSession) {
-			request.getSession();
-		}
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.springframework.security.web.session.InvalidSessionStrategy#
+     * onInvalidSessionDetected(javax.servlet.http.HttpServletRequest,
+     * javax.servlet.http.HttpServletResponse)
+     */
+    protected void onSessionInvalid(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 
-		String targetUrl;
+        logger.info("session失效");
+        String sourceUrl = request.getRequestURI();
 
-		if (StringUtils.endsWithIgnoreCase(sourceUrl, ".html")) {
-			if(StringUtils.equals(sourceUrl, securityPropertie.getBrowser().getSignInPage())
-					|| StringUtils.equals(sourceUrl, securityPropertie.getBrowser().getSignOutUrl())){
-				targetUrl = sourceUrl;
-			}else{
-				targetUrl = destinationUrl;
-			}
-			logger.info("跳转到:"+targetUrl);
-			redirectStrategy.sendRedirect(request, response, targetUrl);
-		} else {
-			Object result = buildResponseContent(request);
-			response.setStatus(HttpStatus.UNAUTHORIZED.value());
-			response.setContentType("application/json;charset=UTF-8");
-			response.getWriter().write(objectMapper.writeValueAsString(result));
-		}
+        if (createNewSession) {
+            request.getSession();
+        }
 
-	}
 
-	/**
-	 * @param request
-	 * @return
-	 */
-	protected Object buildResponseContent(HttpServletRequest request) {
-		String message = "session已失效";
-		if (isConcurrency()) {
-			message = message + "，有可能是并发登录导致的";
-		}
-		return new SimpleResponse(message);
-	}
+        String targetUrl;
 
-	/**
-	 * session失效是否是并发导致的
-	 * 
-	 * @return
-	 */
-	protected boolean isConcurrency() {
-		return false;
-	}
+        if (StringUtils.endsWithIgnoreCase(sourceUrl, ".html")) {
+            if (StringUtils.equals(sourceUrl, securityPropertie.getBrowser().getSignInPage())
+                    || StringUtils.equals(sourceUrl, securityPropertie.getBrowser().getSignOutUrl())) {
+                targetUrl = sourceUrl;
+            } else {
+                targetUrl = destinationUrl;
+            }
+            logger.info("跳转到:" + targetUrl);
+            redirectStrategy.sendRedirect(request, response, targetUrl);
+        } else {
+            Object result = buildResponseContent(request);
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(objectMapper.writeValueAsString(result));
+        }
 
-	/**
-	 * Determines whether a new session should be created before redirecting (to
-	 * avoid possible looping issues where the same session ID is sent with the
-	 * redirected request). Alternatively, ensure that the configured URL does
-	 * not pass through the {@code SessionManagementFilter}.
-	 *
-	 * @param createNewSession
-	 *            defaults to {@code true}.
-	 */
-	public void setCreateNewSession(boolean createNewSession) {
-		this.createNewSession = createNewSession;
-	}
+    }
+
+    /**
+     * @param request
+     * @return
+     */
+    protected Object buildResponseContent(HttpServletRequest request) {
+        String message = "session已失效";
+        if (isConcurrency()) {
+            message = message + "，有可能是并发登录导致的";
+        }
+        return new SimpleResponse(message);
+    }
+
+    /**
+     * session失效是否是并发导致的
+     *
+     * @return
+     */
+    protected boolean isConcurrency() {
+        return false;
+    }
+
+    /**
+     * Determines whether a new session should be created before redirecting (to
+     * avoid possible looping issues where the same session ID is sent with the
+     * redirected request). Alternatively, ensure that the configured URL does
+     * not pass through the {@code SessionManagementFilter}.
+     *
+     * @param createNewSession defaults to {@code true}.
+     */
+    public void setCreateNewSession(boolean createNewSession) {
+        this.createNewSession = createNewSession;
+    }
 
 }

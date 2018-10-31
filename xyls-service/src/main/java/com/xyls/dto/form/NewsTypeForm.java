@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class NewsTypeForm {
 
 
-
     private String newsTypeId;
 
     @NotEmpty(message = "父类类型不能为空（如果无则自动为root）！")

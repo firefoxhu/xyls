@@ -1,4 +1,5 @@
 package com.xyls.rbac.repository;
+
 import com.xyls.rbac.domain.User;
 import org.springframework.stereotype.Repository;
 

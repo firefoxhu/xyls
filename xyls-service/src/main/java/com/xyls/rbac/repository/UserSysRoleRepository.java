@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserSysRoleRepository extends XylsRepository<UserSysRole> {
 
     @Query(value = "select ur from UserSysRole ur where ur.userId=:userId ")
-    List<UserSysRole>  findByUserId(@Param("userId") String userId);
+    List<UserSysRole> findByUserId(@Param("userId") String userId);
 
     void deleteByUserId(String userId);
 }

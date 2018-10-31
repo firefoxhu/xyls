@@ -42,7 +42,7 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private SysResourceRepository sysResourceRepository;
 
-   @Override
+    @Override
     public Page<SysRole> query(Pageable pageable) {
         return sysRoleRepository.findAll(pageable);
     }
@@ -55,7 +55,7 @@ public class RoleServiceImpl implements RoleService {
             throw new Exception("角色已存在！");
         }
         SysRole sysRole = new SysRole();
-        BeanUtils.copyProperties(sysRole,roleForm);
+        BeanUtils.copyProperties(sysRole, roleForm);
         sysRole.setRoleId(GenKeyUtil.key());
         sysRole.setCreateTime(DateUtil.todayDateTime());
 
@@ -64,10 +64,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void remove(String ids) {
-        if(org.apache.commons.lang3.StringUtils.isEmpty(ids)){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"id为空异常刷新页面重试！");
+        if (org.apache.commons.lang3.StringUtils.isEmpty(ids)) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "id为空异常刷新页面重试！");
         }
-        for(String item:ids.split(",") ){
+        for (String item : ids.split(",")) {
             sysRoleRepository.delete(item);
         }
     }
@@ -78,9 +78,9 @@ public class RoleServiceImpl implements RoleService {
             throw new Exception("参数非法请刷新页面重试！");
         }
 
-        SysRole sysRole =sysRoleRepository.findOne(roleForm.getRoleId());
+        SysRole sysRole = sysRoleRepository.findOne(roleForm.getRoleId());
 
-        BeanUtils.copyProperties(sysRole,roleForm);
+        BeanUtils.copyProperties(sysRole, roleForm);
         sysRoleRepository.save(sysRole);
     }
 
@@ -101,27 +101,27 @@ public class RoleServiceImpl implements RoleService {
         roleMenuDTO.setRoleId(sysRole.getRoleId());
         roleMenuDTO.setRoleName(sysRole.getRoleName());
 
-        Map<String,List<ResourceTree>> map = new HashMap<>();
+        Map<String, List<ResourceTree>> map = new HashMap<>();
 
         //组装数据树
-        for(SysResource sysResource:sysRoleResourceList){
+        for (SysResource sysResource : sysRoleResourceList) {
 
 
-            if(org.apache.commons.lang3.StringUtils.equals("root",sysResource.getResourceParentId())){
+            if (org.apache.commons.lang3.StringUtils.equals("root", sysResource.getResourceParentId())) {
 
                 List<ResourceTree> resourceTrees = new ArrayList<>();
 
-                for(SysResource item:sysRoleResourceList){
+                for (SysResource item : sysRoleResourceList) {
 
-                    if(org.apache.commons.lang3.StringUtils.equals(item.getResourceParentId(),sysResource.getResourceId())){
+                    if (org.apache.commons.lang3.StringUtils.equals(item.getResourceParentId(), sysResource.getResourceId())) {
 
                         ResourceTree resourceTree = new ResourceTree();
 
-                        BeanUtils.copyProperties(resourceTree,item);
+                        BeanUtils.copyProperties(resourceTree, item);
 
-                        for(SysRoleResource sysRoleResource:sysRoleResources){
+                        for (SysRoleResource sysRoleResource : sysRoleResources) {
 
-                            if(org.apache.commons.lang3.StringUtils.equals(sysRoleResource.getResourceId(),item.getResourceId())){
+                            if (org.apache.commons.lang3.StringUtils.equals(sysRoleResource.getResourceId(), item.getResourceId())) {
 
                                 resourceTree.setHave(true);
 
@@ -131,7 +131,7 @@ public class RoleServiceImpl implements RoleService {
                         resourceTrees.add(resourceTree);
                     }
                 }
-                map.put(sysResource.getResourceName(),resourceTrees);
+                map.put(sysResource.getResourceName(), resourceTrees);
             }
         }
         roleMenuDTO.setMap(map);
@@ -142,26 +142,26 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void bind(String roleId, String resourceIds) {
 
-       String[] ids= resourceIds.split(",");
-        List<SysRoleResource>  sysRoleResources = new ArrayList<>();
-       for(String item:ids){
+        String[] ids = resourceIds.split(",");
+        List<SysRoleResource> sysRoleResources = new ArrayList<>();
+        for (String item : ids) {
             SysRoleResource sysRoleResource = new SysRoleResource();
             sysRoleResource.setRoleId(roleId);
             sysRoleResource.setResourceId(item);
             sysRoleResource.setRoleResourceId(GenKeyUtil.key());
             sysRoleResources.add(sysRoleResource);
-       }
+        }
 
-       sysRoleResourceRepository.save(sysRoleResources);
+        sysRoleResourceRepository.save(sysRoleResources);
     }
 
     @Override
     @Transactional
-    public void unbind(String roleId,String resourceIds) {
+    public void unbind(String roleId, String resourceIds) {
 
-        String[] ids= resourceIds.split(",");
-        for(String item:ids){
-            sysRoleResourceRepository.deleteByRoleIdAndResourceId(roleId,item);
+        String[] ids = resourceIds.split(",");
+        for (String item : ids) {
+            sysRoleResourceRepository.deleteByRoleIdAndResourceId(roleId, item);
         }
 
     }

@@ -34,26 +34,25 @@ public class FileManagerController {
 
 
     @GetMapping("kindeditor")
-    public String  index(){
+    public String index() {
         return "kindeditor";
     }
 
 
-
     @GetMapping("manager")
-    public void manager(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public void manager(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-       PrintWriter out= response.getWriter();
+        PrintWriter out = response.getWriter();
 
         String rootPath = securityProperties.getFile().getFileDir();
         //根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
-        String rootUrl  =securityProperties.getFile().getUrl();
+        String rootUrl = securityProperties.getFile().getUrl();
         //图片扩展名
         String[] fileTypes = new String[]{"gif", "jpg", "jpeg", "png", "bmp"};
 
         String dirName = request.getParameter("dir");
         if (dirName != null) {
-            if(!Arrays.<String>asList(new String[]{"image", "flash", "media", "file"}).contains(dirName)){
+            if (!Arrays.<String>asList(new String[]{"image", "flash", "media", "file"}).contains(dirName)) {
                 out.println("Invalid Directory name.");
                 return;
             }
@@ -90,24 +89,24 @@ public class FileManagerController {
         }
         //目录不存在或不是目录
         File currentPathFile = new File(currentPath);
-        if(!currentPathFile.isDirectory()){
+        if (!currentPathFile.isDirectory()) {
             out.println("Directory does not exist.");
             return;
         }
 
         //遍历目录取的文件信息
         List<Hashtable> fileList = new ArrayList<Hashtable>();
-        if(currentPathFile.listFiles() != null) {
+        if (currentPathFile.listFiles() != null) {
             for (File file : currentPathFile.listFiles()) {
                 Hashtable<String, Object> hash = new Hashtable<String, Object>();
                 String fileName = file.getName();
-                if(file.isDirectory()) {
+                if (file.isDirectory()) {
                     hash.put("is_dir", true);
                     hash.put("has_file", (file.listFiles() != null));
                     hash.put("filesize", 0L);
                     hash.put("is_photo", false);
                     hash.put("filetype", "");
-                } else if(file.isFile()){
+                } else if (file.isFile()) {
                     String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
                     hash.put("is_dir", false);
                     hash.put("has_file", false);
@@ -128,7 +127,7 @@ public class FileManagerController {
         } else {
             Collections.sort(fileList, new NameComparator());
         }
-        Map<String,Object> result = new HashedMap();
+        Map<String, Object> result = new HashedMap();
         result.put("moveup_dir_path", moveupDirPath);
         result.put("current_dir_path", currentDirPath);
         result.put("current_url", currentUrl);
@@ -141,14 +140,14 @@ public class FileManagerController {
 
 
     @PostMapping("upload")
-    public void upload( MultipartFile imgFile,HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public void upload(MultipartFile imgFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 
-        PrintWriter  out =response.getWriter();
+        PrintWriter out = response.getWriter();
 
         response.setContentType("text/html; charset=UTF-8");
 
-        if(imgFile.isEmpty()){
+        if (imgFile.isEmpty()) {
             out.println(getError("请选择文件!"));
             return;
         }
@@ -167,17 +166,17 @@ public class FileManagerController {
         String savePath = securityProperties.getFile().getFileDir();
 
         //文件保存目录URL
-        String saveUrl  ="";
+        String saveUrl = "";
 
         //检查目录
         File uploadDir = new File(savePath);
-        if(!uploadDir.isDirectory()){
+        if (!uploadDir.isDirectory()) {
             out.println(getError("上传目录不存在。【请配置好上传的文件主目录】"));
             return;
         }
 
         //检查目录写权限
-        if(!uploadDir.canWrite()){
+        if (!uploadDir.canWrite()) {
             out.println(getError("上传目录没有写权限。"));
             return;
         }
@@ -187,7 +186,7 @@ public class FileManagerController {
             dirName = "image";
         }
         //匹配是否有image文件目录
-        if(!extMap.containsKey(dirName)){
+        if (!extMap.containsKey(dirName)) {
             out.println(getError("目录名不正确。"));
             return;
         }
@@ -209,16 +208,16 @@ public class FileManagerController {
         }
 
 
-        if(imgFile.getSize() > maxSize){
+        if (imgFile.getSize() > maxSize) {
             out.println(getError("上传文件大小超过限制。"));
             return;
         }
         //获取文件的源名称
-        String originalName=imgFile.getOriginalFilename();
+        String originalName = imgFile.getOriginalFilename();
         //获取文件的后缀名
-        String suffix=originalName.substring(originalName.lastIndexOf("."));
+        String suffix = originalName.substring(originalName.lastIndexOf("."));
         //判断后缀是否合法
-        if(!Arrays.asList(extMap.get(dirName).split(",")).contains(suffix)){
+        if (!Arrays.asList(extMap.get(dirName).split(",")).contains(suffix)) {
             out.println(getError("上传文件扩展名是不允许的扩展名。\n只允许" + extMap.get(dirName) + "格式。"));
             return;
         }
@@ -235,7 +234,7 @@ public class FileManagerController {
             return;
         }
 
-        Map<String,Object> obj = new HashedMap();
+        Map<String, Object> obj = new HashedMap();
         obj.put("error", 0);
         obj.put("url", securityProperties.getFile().getUrl().concat(saveUrl) + fileName);
         out.println(objectMapper.writeValueAsString(obj));
@@ -243,7 +242,7 @@ public class FileManagerController {
 
 
     private String getError(String message) {
-        Map<String,Object> obj = new HashedMap();
+        Map<String, Object> obj = new HashedMap();
         obj.put("error", 1);
         obj.put("message", message);
         try {

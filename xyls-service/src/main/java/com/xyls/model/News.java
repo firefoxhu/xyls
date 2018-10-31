@@ -1,4 +1,5 @@
 package com.xyls.model;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,22 +13,22 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ls_news",indexes = {@Index(name="index_title",columnList = "newsTitle",unique = false)})
-public class News  implements  Serializable{
+@Table(name = "ls_news", indexes = {@Index(name = "index_title", columnList = "newsTitle", unique = false)})
+public class News implements Serializable {
 
     /**
-     *新闻id
+     * 新闻id
      */
     @Id
     @Column(length = 32)
     private String newsId;
     /**
-     *新闻栏目id
+     * 新闻栏目id
      */
     @Column(length = 32)
     private String newsClsId;
     /**
-     *新闻类型id
+     * 新闻类型id
      */
     @Column(length = 32)
     private String newsTypeId;
@@ -64,16 +65,15 @@ public class News  implements  Serializable{
     private String newsViews;
     /**
      * 新闻是否顶置
-     1、顶置
-        其他 非顶置
-     *
+     * 1、顶置
+     * 其他 非顶置
      */
     @Column(length = 1)
     private String newsIsTop;
     /**
      * 新闻是否开启评论
-     1、能
-     其他不能
+     * 1、能
+     * 其他不能
      */
     @Column(length = 1)
     private String newsIsComment;
@@ -83,10 +83,10 @@ public class News  implements  Serializable{
     /**
      * 新闻显示类型
      * L：左图片
-       R：右图爿
-       T：下3图爿
-       F：下四图爿
-       M：下视频
+     * R：右图爿
+     * T：下3图爿
+     * F：下四图爿
+     * M：下视频
      */
     @Column(length = 1)
     private String newsShowType;

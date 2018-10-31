@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostForm {
 
-    private String  pid;
+    private String pid;
 
     private String content;
 
-    private String  pic;
+    private String pic;
 
-    private String  concat;
+    private String concat;
 
     private String ip;
 

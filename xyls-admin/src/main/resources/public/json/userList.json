@@ -11,8 +11,9 @@
       "userStatus": "0",
       "userGrade": "4",
       "userEndTime": "2018-01-31 10:00",
-      "userDesc" : "layuiCMS作者，原名‘请叫我马哥’"
-    },{
+      "userDesc": "layuiCMS作者，原名‘请叫我马哥’"
+    },
+    {
       "usersId": "2",
       "userName": "贤心",
       "userEmail": "xianxin@layui.com",
@@ -20,7 +21,7 @@
       "userStatus": "0",
       "userGrade": "3",
       "userEndTime": "2018-01-14 15:35",
-      "userDesc" : "layui框架作者，性别至今是个谜。。。"
+      "userDesc": "layui框架作者，性别至今是个谜。。。"
     },
     {
       "usersId": "3",
@@ -30,7 +31,7 @@
       "userStatus": "1",
       "userGrade": "2",
       "userEndTime": "2018-01-25 16:25",
-      "userDesc" : "fly社区管理员，据传与layui作者有奸情，故帐号被封。"
+      "userDesc": "fly社区管理员，据传与layui作者有奸情，故帐号被封。"
     }
   ]
 }

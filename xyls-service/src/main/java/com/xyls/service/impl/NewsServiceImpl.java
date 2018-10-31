@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.criteria.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+
 @Service
 @Transactional
 @Slf4j
@@ -35,34 +36,34 @@ public class NewsServiceImpl implements NewsService {
     private NewsRepository newsRepository;
 
     @Override
-    public ResultGrid list(int page, int pageSize,String title) {
+    public ResultGrid list(int page, int pageSize, String title) {
 
-        Pageable pageRequest = new PageRequest(page, pageSize,new Sort(Sort.Direction.DESC,"createTime"));
-        Specification<News> specification =null;
+        Pageable pageRequest = new PageRequest(page, pageSize, new Sort(Sort.Direction.DESC, "createTime"));
+        Specification<News> specification = null;
 
-        if(title != null){
-            specification = (root,criteriaQuery,criteriaBuilder)-> {
-                    Path<String> _time = root.get("newsTitle");
-                    Predicate _key = criteriaBuilder.like(_time,"%"+title+"%");
-                    return criteriaBuilder.and(_key);
+        if (title != null) {
+            specification = (root, criteriaQuery, criteriaBuilder) -> {
+                Path<String> _time = root.get("newsTitle");
+                Predicate _key = criteriaBuilder.like(_time, "%" + title + "%");
+                return criteriaBuilder.and(_key);
             };
         }
 
-        Page<News> newsPage=newsRepository.findAll(specification,pageRequest);
+        Page<News> newsPage = newsRepository.findAll(specification, pageRequest);
 
-        return new ResultGrid(0,"",Integer.parseInt(String.valueOf(newsPage.getTotalElements())),newsPage.getContent());
+        return new ResultGrid(0, "", Integer.parseInt(String.valueOf(newsPage.getTotalElements())), newsPage.getContent());
     }
 
     @Override
     public void save(NewsForm newsForm, String userId) throws InvocationTargetException, IllegalAccessException {
-        News  news=new News();
+        News news = new News();
 
-        BeanUtils.copyProperties(news,newsForm);
+        BeanUtils.copyProperties(news, newsForm);
 
         news.setNewsId(GenKeyUtil.key());
 
-        news.setNewsViews(String.valueOf(new Random().nextInt(100)+1));
-        news.setFabulous(String.valueOf(new Random().nextInt(20)+1));
+        news.setNewsViews(String.valueOf(new Random().nextInt(100) + 1));
+        news.setFabulous(String.valueOf(new Random().nextInt(20) + 1));
         news.setCreatePerson(userId);
         news.setCreateTime(DateUtil.todayDateTime());
         newsRepository.save(news);
@@ -70,37 +71,37 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public NewsDTO preview(String newsId) throws InvocationTargetException, IllegalAccessException {
-        NewsDTO newsDTO=new NewsDTO();
-        News  news=new News();
+        NewsDTO newsDTO = new NewsDTO();
+        News news = new News();
         news.setNewsId(newsId);
-        news=newsRepository.findOne(newsId);
+        news = newsRepository.findOne(newsId);
 
-        BeanUtils.copyProperties(newsDTO,news);
+        BeanUtils.copyProperties(newsDTO, news);
 
         return newsDTO;
     }
 
     @Override
     public void modify(NewsForm newsForm, String userId) throws InvocationTargetException, IllegalAccessException {
-        if(StringUtils.isEmpty(newsForm.getNewsId())){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"所要修改的新闻id为空，请刷新页面重新提交！");
+        if (StringUtils.isEmpty(newsForm.getNewsId())) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "所要修改的新闻id为空，请刷新页面重新提交！");
         }
-        News  news=newsRepository.getOne(newsForm.getNewsId());
-        BeanUtils.copyProperties(news,newsForm);
+        News news = newsRepository.getOne(newsForm.getNewsId());
+        BeanUtils.copyProperties(news, newsForm);
 
         news.setModifyDescription(userId);
         news.setModifyPerson(userId);
         news.setModifyTime(DateUtil.todayDateTime());
-       newsRepository.save(news);
+        newsRepository.save(news);
     }
 
     @Override
     public void remove(String newsIds) {
 
-        if(StringUtils.isEmpty(newsIds)){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"id为空异常刷新页面重试！");
+        if (StringUtils.isEmpty(newsIds)) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "id为空异常刷新页面重试！");
         }
-        for(String item:newsIds.split(",") ){
+        for (String item : newsIds.split(",")) {
             newsRepository.delete(item);
         }
     }

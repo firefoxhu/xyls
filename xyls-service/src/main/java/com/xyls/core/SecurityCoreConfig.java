@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.xyls.core;
 
@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author zhailiang
- *
  */
 @Configuration
 @EnableConfigurationProperties(SecurityProperties.class)

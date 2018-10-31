@@ -1,4 +1,5 @@
 package com.xyls.admin;
+
 import com.xyls.dto.form.ShopForm;
 import com.xyls.dto.form.ValidateForm;
 import com.xyls.dto.support.ResultGrid;
@@ -24,7 +25,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/shop/")
-@Menu(name = "门店管理",uri = "/admin/shop/",isParent = true,type = MenuType.CONTROLLER,description = "门店管理控制器")
+@Menu(name = "门店管理", uri = "/admin/shop/", isParent = true, type = MenuType.CONTROLLER, description = "门店管理控制器")
 public class ShopController {
 
     @Autowired
@@ -35,76 +36,74 @@ public class ShopController {
 
 
     @GetMapping("page/list")
-    @Menu(name = "门店列表",uri = "page/list",type = MenuType.MAIN_PAGE,description = "门店列表页")
-    public String  list(){
+    @Menu(name = "门店列表", uri = "page/list", type = MenuType.MAIN_PAGE, description = "门店列表页")
+    public String list() {
         return "admin/shop/list";
     }
 
     @GetMapping("page/add")
-    @Menu(name = "添加门店",uri = "page/add",type = MenuType.SUB_PAGE,description = "添加门店页面")
-    public String  add(){
+    @Menu(name = "添加门店", uri = "page/add", type = MenuType.SUB_PAGE, description = "添加门店页面")
+    public String add() {
         return "admin/shop/add";
     }
 
     @GetMapping("page/edit")
-    @Menu(name = "编辑门店",uri = "page/edit",type = MenuType.SUB_PAGE,description = "编辑门店页面")
-    public String  edit(Model model, String id){
-        model.addAttribute("data",shopService.query(id));
+    @Menu(name = "编辑门店", uri = "page/edit", type = MenuType.SUB_PAGE, description = "编辑门店页面")
+    public String edit(Model model, String id) {
+        model.addAttribute("data", shopService.query(id));
         return "admin/shop/edit";
     }
 
 
     @GetMapping("list")
     @ResponseBody
-    @Menu(name = "门店列表数据",uri = "list",type = MenuType.DATA,description = "门店列表数据")
-    public ResultGrid list(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int limit){
+    @Menu(name = "门店列表数据", uri = "list", type = MenuType.DATA, description = "门店列表数据")
+    public ResultGrid list(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int limit) {
         try {
-            PageRequest pageRequest = new PageRequest(page-1,limit);
-            Page<Shop> newsClassPage=shopService.query(pageRequest);
-            return new ResultGrid(0,"",Integer.parseInt(String.valueOf(newsClassPage.getTotalElements())),newsClassPage.getContent());
-        }catch (Exception e){
-            return new ResultGrid(0,e.getMessage(),0,null);
+            PageRequest pageRequest = new PageRequest(page - 1, limit);
+            Page<Shop> newsClassPage = shopService.query(pageRequest);
+            return new ResultGrid(0, "", Integer.parseInt(String.valueOf(newsClassPage.getTotalElements())), newsClassPage.getContent());
+        } catch (Exception e) {
+            return new ResultGrid(0, e.getMessage(), 0, null);
         }
     }
 
 
     @PostMapping("add")
     @ResponseBody
-    @Menu(name = "门店列数据添加",uri = "add",type = MenuType.BUTTON,description = "门店数据添加")
-    public ServerResponse add(@Valid ShopForm shopForm, @AuthenticationPrincipal UserDetails userDetails, BindingResult result){
+    @Menu(name = "门店列数据添加", uri = "add", type = MenuType.BUTTON, description = "门店数据添加")
+    public ServerResponse add(@Valid ShopForm shopForm, @AuthenticationPrincipal UserDetails userDetails, BindingResult result) {
         try {
-            ValidateForm.validate(result,messageSource);
-        }catch (UserFormException e){
-            return ServerResponse.fail(e.getCode(),e.getMessage());
+            ValidateForm.validate(result, messageSource);
+        } catch (UserFormException e) {
+            return ServerResponse.fail(e.getCode(), e.getMessage());
         }
-        try{
-            UserInfo userInfo = (UserInfo)userDetails;
-            shopService.save(shopForm,userInfo.getUsername());
-            return  ServerResponse.success("门店添加成功！");
-        }catch (Exception  e){
+        try {
+            UserInfo userInfo = (UserInfo) userDetails;
+            shopService.save(shopForm, userInfo.getUsername());
+            return ServerResponse.success("门店添加成功！");
+        } catch (Exception e) {
             return ServerResponse.fail(e.getMessage());
         }
     }
 
 
-
-
     @PostMapping("edit")
     @ResponseBody
-    @Menu(name = "门店数据编辑",uri = "edit",type = MenuType.BUTTON,description = "门店数据编辑")
-    public ServerResponse edit(@AuthenticationPrincipal UserDetails userDetails,@Valid ShopForm shopForm, BindingResult result){
+    @Menu(name = "门店数据编辑", uri = "edit", type = MenuType.BUTTON, description = "门店数据编辑")
+    public ServerResponse edit(@AuthenticationPrincipal UserDetails userDetails, @Valid ShopForm shopForm, BindingResult result) {
 
         try {
-            ValidateForm.validate(result,messageSource);
-        }catch (UserFormException e){
-            return ServerResponse.fail(e.getCode(),e.getMessage());
+            ValidateForm.validate(result, messageSource);
+        } catch (UserFormException e) {
+            return ServerResponse.fail(e.getCode(), e.getMessage());
         }
 
-        try{
-            UserInfo userInfo = (UserInfo)userDetails;
-            shopService.modify(shopForm,userInfo.getUsername());
-            return  ServerResponse.success("门店的修改成功！");
-        }catch (Exception  e){
+        try {
+            UserInfo userInfo = (UserInfo) userDetails;
+            shopService.modify(shopForm, userInfo.getUsername());
+            return ServerResponse.success("门店的修改成功！");
+        } catch (Exception e) {
             return ServerResponse.fail(e.getMessage());
         }
     }
@@ -112,12 +111,12 @@ public class ShopController {
 
     @PostMapping("remove")
     @ResponseBody
-    @Menu(name = "门店数据删除",uri = "remove",type = MenuType.BUTTON,description = "门店数据删除")
-    public ServerResponse  remove(String ids){
-        try{
+    @Menu(name = "门店数据删除", uri = "remove", type = MenuType.BUTTON, description = "门店数据删除")
+    public ServerResponse remove(String ids) {
+        try {
             shopService.remove(ids);
-            return  ServerResponse.success("门店删除成功！");
-        }catch (Exception  e){
+            return ServerResponse.success("门店删除成功！");
+        } catch (Exception e) {
             return ServerResponse.fail(e.getMessage());
         }
     }
@@ -125,11 +124,11 @@ public class ShopController {
 
     @GetMapping("{id}/preview")
     @ResponseBody
-    public ServerResponse preview(@PathVariable(value = "id")String id){
+    public ServerResponse preview(@PathVariable(value = "id") String id) {
 
-        try{
+        try {
             return ServerResponse.success(shopService.query(id));
-        }catch (Exception  e){
+        } catch (Exception e) {
             return ServerResponse.fail(e.getMessage());
         }
     }

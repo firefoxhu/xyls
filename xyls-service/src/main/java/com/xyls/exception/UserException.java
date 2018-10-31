@@ -1,4 +1,5 @@
 package com.xyls.exception;
+
 import lombok.Data;
 
 @Data
@@ -8,7 +9,7 @@ public class UserException extends RuntimeException {
 
     public String message;
 
-    public UserException(){
+    public UserException() {
         super();
     }
 }

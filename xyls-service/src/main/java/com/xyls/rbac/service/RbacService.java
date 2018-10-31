@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.xyls.rbac.service;
 
@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author zhailiang
- *
  */
 public interface RbacService {
-	
-	boolean hasPermission(HttpServletRequest request, Authentication authentication);
+
+    boolean hasPermission(HttpServletRequest request, Authentication authentication);
 
 }

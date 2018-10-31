@@ -1,5 +1,7 @@
 package com.xyls.dto.dto;
+
 import lombok.Data;
+
 @Data
 public class ResourceTree {
 

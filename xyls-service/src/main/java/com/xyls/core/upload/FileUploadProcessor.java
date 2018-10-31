@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FileUploadProcessor {
 
 
-    FileResponse transfer(MultipartFile multipartFile,String type)throws  FileUploadException;
+    FileResponse transfer(MultipartFile multipartFile, String type) throws FileUploadException;
 
     void download(ServletWebRequest request);
 

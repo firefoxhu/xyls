@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.xyls.rbac.service.impl;
 
@@ -16,38 +16,37 @@ import java.util.List;
 
 /**
  * @author zhailiang
- *
  */
 @Component("rbacService")
 public class RbacServiceImpl implements RbacService {
 
-	private AntPathMatcher antPathMatcher = new AntPathMatcher();
+    private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-	@Override
-	public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
-		Object principal = authentication.getPrincipal();
+    @Override
+    public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
+        Object principal = authentication.getPrincipal();
 
-		boolean hasPermission = false;
+        boolean hasPermission = false;
 
-		if (principal instanceof UserInfo) {
+        if (principal instanceof UserInfo) {
 
-			UserInfo userInfo=(UserInfo) principal;
+            UserInfo userInfo = (UserInfo) principal;
 
-			//如果用户名是admin，就永远返回true
-			if (StringUtils.equals(userInfo.getUsername(), "admin")) {
-				hasPermission = true;
-			} else {
-				// 读取用户所拥有权限的所有URL
-				List<SysResource> urls =userInfo.getSysResources();
-				for (SysResource url : urls) {
-					if (antPathMatcher.match(url.getResourceUrl(), request.getRequestURI())) {
-						hasPermission = true;
-						break;
-					}
-				}
-			}
-		}
-		return hasPermission;
-	}
+            //如果用户名是admin，就永远返回true
+            if (StringUtils.equals(userInfo.getUsername(), "admin")) {
+                hasPermission = true;
+            } else {
+                // 读取用户所拥有权限的所有URL
+                List<SysResource> urls = userInfo.getSysResources();
+                for (SysResource url : urls) {
+                    if (antPathMatcher.match(url.getResourceUrl(), request.getRequestURI())) {
+                        hasPermission = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return hasPermission;
+    }
 
 }

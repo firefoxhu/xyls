@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.xyls.rbac.repository;
 
@@ -9,7 +9,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 /**
  * @author zhailiang
- *
  */
 @NoRepositoryBean
 public interface XylsRepository<T> extends JpaRepository<T, String>, JpaSpecificationExecutor<T> {

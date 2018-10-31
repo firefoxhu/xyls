@@ -36,7 +36,7 @@ public class ResourceServiceImpl implements ResourceService {
             throw new Exception("资源已存在！");
         }
         SysResource sysResource = new SysResource();
-        BeanUtils.copyProperties(sysResource,resourceForm);
+        BeanUtils.copyProperties(sysResource, resourceForm);
         sysResource.setResourceId(resourceForm.getResourceId());
         sysResource.setCreateTime(DateUtil.todayDateTime());
         resourceRepository.save(sysResource);
@@ -44,10 +44,10 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public void remove(String ids) {
-        if(org.apache.commons.lang3.StringUtils.isEmpty(ids)){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"id为空异常刷新页面重试！");
+        if (org.apache.commons.lang3.StringUtils.isEmpty(ids)) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "id为空异常刷新页面重试！");
         }
-        for(String item:ids.split(",") ){
+        for (String item : ids.split(",")) {
             resourceRepository.delete(item);
         }
     }
@@ -64,9 +64,9 @@ public class ResourceServiceImpl implements ResourceService {
             throw new Exception("资源已存在！");
         }
 
-        SysResource sysResource =resourceRepository.findOne(resourceForm.getResourceId());
+        SysResource sysResource = resourceRepository.findOne(resourceForm.getResourceId());
 
-        BeanUtils.copyProperties(sysResource,resourceForm);
+        BeanUtils.copyProperties(sysResource, resourceForm);
         resourceRepository.save(sysResource);
     }
 
@@ -79,9 +79,9 @@ public class ResourceServiceImpl implements ResourceService {
     public void batch(List<SysResource> sysResources) {
         List<SysResource> sysResourceList = new ArrayList<>();
         //过滤集合过滤以有的菜单
-        for(SysResource item: sysResources){
+        for (SysResource item : sysResources) {
             SysResource sysResource = resourceRepository.findByResourceUrl(item.getResourceUrl());
-            if(StringUtils.isEmpty(sysResource)){
+            if (StringUtils.isEmpty(sysResource)) {
                 sysResourceList.add(item);
             }
         }

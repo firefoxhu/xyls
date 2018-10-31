@@ -26,7 +26,7 @@ public class InitResourceDataConfigurer implements ApplicationListener<ContextRe
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        Map<String, Object> map=contextRefreshedEvent.getApplicationContext().getBeansWithAnnotation(Menu.class);
+        Map<String, Object> map = contextRefreshedEvent.getApplicationContext().getBeansWithAnnotation(Menu.class);
 
         for (String key : map.keySet()) {
             Class<?> clazz = map.get(key).getClass();

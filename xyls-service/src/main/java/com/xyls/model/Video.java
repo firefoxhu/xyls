@@ -45,7 +45,7 @@ public class Video {
     private String source;
 
     @Column(length = 8)
-    private String  playNumber;
+    private String playNumber;
 
     @Column(length = 8)
     private String fabulous;
@@ -70,7 +70,6 @@ public class Video {
 
     @Column(length = 32)
     private String modifyDescription;
-
 
 
 }

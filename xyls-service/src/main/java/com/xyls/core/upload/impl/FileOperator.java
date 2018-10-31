@@ -27,36 +27,35 @@ public class FileOperator implements FileUploadProcessor {
     private SecurityProperties securityProperties;
 
     @Override
-    public FileResponse transfer(MultipartFile multipartFile,String type) {
+    public FileResponse transfer(MultipartFile multipartFile, String type) {
 
         if (multipartFile.isEmpty()) {
             throw new FileUploadException("参数异常后端并没有受到文件信息！请刷新重新上传！");
         }
 
 
-        if (StringUtils.isEmpty(securityProperties.getFile().getFileDir())){
+        if (StringUtils.isEmpty(securityProperties.getFile().getFileDir())) {
             throw new FileUploadException("请配置上传的文件路径[xyls.secuirty.file.fileDir] [默认的传输文件大小3M如需要请修改相应的配置]");
         }
 
 
-
-        if(multipartFile.getSize()/(1024*1024*1024) > securityProperties.getFile().getFileSize()){
-            throw new FileUploadException("当前上传的文件超过配置文件的大小["+securityProperties.getFile().getFileSize()+"] 如需要请重新配置");
+        if (multipartFile.getSize() / (1024 * 1024 * 1024) > securityProperties.getFile().getFileSize()) {
+            throw new FileUploadException("当前上传的文件超过配置文件的大小[" + securityProperties.getFile().getFileSize() + "] 如需要请重新配置");
         }
 
-        String filePath=securityProperties.getFile().getFileDir();
+        String filePath = securityProperties.getFile().getFileDir();
 
         File canWrite = new File(filePath);
 
         //检查目录写权限
-        if(!canWrite.canWrite()){
+        if (!canWrite.canWrite()) {
             throw new FileUploadException("系统的当前配置没有写的权限 请放宽权限！");
         }
 
         //前端传来的参数 目前暂时不做通用处理
         String dirName = type;
 
-        String saveUrl="";
+        String saveUrl = "";
 
         filePath += dirName + "/";
 
@@ -80,13 +79,13 @@ public class FileOperator implements FileUploadProcessor {
         //重构文件名称
         String originName = multipartFile.getOriginalFilename();
 
-        String extendName= originName.substring(originName.lastIndexOf("."));
+        String extendName = originName.substring(originName.lastIndexOf("."));
 
-        String fileName=String.valueOf(System.currentTimeMillis()).concat(extendName);
+        String fileName = String.valueOf(System.currentTimeMillis()).concat(extendName);
 
 
         //构建文件路径对象
-        File file = new File(filePath,fileName);
+        File file = new File(filePath, fileName);
 
         try {
 
@@ -100,33 +99,33 @@ public class FileOperator implements FileUploadProcessor {
 
         }
 
-        return new FileResponse(securityProperties.getFile().getUrl().concat(saveUrl).concat(fileName),multipartFile.getSize(),securityProperties.getFile().getFileDir());
+        return new FileResponse(securityProperties.getFile().getUrl().concat(saveUrl).concat(fileName), multipartFile.getSize(), securityProperties.getFile().getFileDir());
     }
 
     @Override
     public void download(ServletWebRequest request) {
-        String fileName =null;
+        String fileName = null;
         try {
 
-            fileName = ServletRequestUtils.getRequiredStringParameter(request.getRequest(),"fileName");
+            fileName = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), "fileName");
 
         } catch (ServletRequestBindingException e) {
-           throw new FileUploadException("下载的文件名不存在！请配置[xyls.security.file.fileName] 必须传值fileName字段");
+            throw new FileUploadException("下载的文件名不存在！请配置[xyls.security.file.fileName] 必须传值fileName字段");
         }
 
         HttpServletResponse response = request.getResponse();
-        try (InputStream inputStream = new FileInputStream(new File(securityProperties.getFile().getFileDir(),fileName));
+        try (InputStream inputStream = new FileInputStream(new File(securityProperties.getFile().getFileDir(), fileName));
              OutputStream outputStream = response.getOutputStream();) {
             response.setContentType("application/x-download");
-            response.addHeader("Content-Disposition", "attachment;filename="+fileName);
+            response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
             IOUtils.copy(inputStream, outputStream);
             outputStream.flush();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            throw new FileUploadException("你下载的文件已过期！"+e.getMessage());
+            throw new FileUploadException("你下载的文件已过期！" + e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
-            throw new FileUploadException("未知异常！"+e.getMessage());
+            throw new FileUploadException("未知异常！" + e.getMessage());
         }
     }
 }

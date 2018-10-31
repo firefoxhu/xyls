@@ -28,15 +28,15 @@ public class NewsClassServiceImpl implements NewsClassService {
 
     @Override
     public Page<NewsClass> query(Pageable pageable) {
-        Page<NewsClass>  page  = newsClassRepository.findAll(pageable);
+        Page<NewsClass> page = newsClassRepository.findAll(pageable);
         return page;
     }
 
     @Override
-    public void save(NewsClassForm newsClassForm,String useName) throws InvocationTargetException, IllegalAccessException {
+    public void save(NewsClassForm newsClassForm, String useName) throws InvocationTargetException, IllegalAccessException {
         NewsClass newsClass = new NewsClass();
 
-        BeanUtils.copyProperties(newsClass,newsClassForm);
+        BeanUtils.copyProperties(newsClass, newsClassForm);
         newsClass.setNewsClsId(GenKeyUtil.key());
         newsClass.setCreateTime(DateUtil.todayDateTime());
         newsClass.setCreatePerson(useName);
@@ -45,21 +45,21 @@ public class NewsClassServiceImpl implements NewsClassService {
 
     @Override
     public void remove(String ids) {
-        if(StringUtils.isEmpty(ids)){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"id为空异常刷新页面重试！");
+        if (StringUtils.isEmpty(ids)) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "id为空异常刷新页面重试！");
         }
-        for(String item:ids.split(",") ){
+        for (String item : ids.split(",")) {
             newsClassRepository.delete(item);
         }
     }
 
     @Override
     public void modify(NewsClassForm newsClassForm, String useName) throws InvocationTargetException, IllegalAccessException {
-        if(StringUtils.isEmpty(newsClassForm.getNewsClsId())){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"所要修改的栏目id为空，请刷新页面重新提交！");
+        if (StringUtils.isEmpty(newsClassForm.getNewsClsId())) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "所要修改的栏目id为空，请刷新页面重新提交！");
         }
         NewsClass newsClass = newsClassRepository.findOne(newsClassForm.getNewsClsId());
-        BeanUtils.copyProperties(newsClass,newsClassForm);
+        BeanUtils.copyProperties(newsClass, newsClassForm);
         newsClass.setModifyPerson(useName);
         newsClass.setModifyTime(DateUtil.todayDateTime());
         newsClassRepository.save(newsClass);
@@ -67,16 +67,16 @@ public class NewsClassServiceImpl implements NewsClassService {
 
     @Override
     public NewsClass query(String id) {
-        if(StringUtils.isEmpty(id)){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"id为空异常刷新页面重试！");
+        if (StringUtils.isEmpty(id)) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "id为空异常刷新页面重试！");
         }
 
-      return   newsClassRepository.findOne(id);
+        return newsClassRepository.findOne(id);
     }
 
     @Override
     public List<NewsClass> queryAll() {
-      return   newsClassRepository.findAll();
+        return newsClassRepository.findAll();
     }
 
 

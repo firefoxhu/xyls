@@ -1,140 +1,148 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8"/>
-	<title>信阳罗森机电</title>
-	<meta name="renderer" content="webkit"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<meta name="format-detection" content="telephone=no"/>
-	<link rel="stylesheet" href="/layui/css/layui.css" media="all" />
-	<link rel="stylesheet" href="/css/public.css" media="all" />
+    <meta charset="utf-8"/>
+    <title>信阳罗森机电</title>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/public.css" media="all"/>
 </head>
 <body class="childrenBody">
 
 <form class="layui-form layui-row layui-col-space10">
-	<div class="layui-col-md9 layui-col-xs12">
-		<div class="layui-row layui-col-space10">
-			<div class="layui-col-md9 layui-col-xs7">
-				<input type="text" class="layui-input userId" value="${data.userId}" style="display: none;">
-				<div class="layui-form-item magt3">
-					<label class="layui-form-label">用户名称</label>
-					<div class="layui-input-block">
-						<input type="text" class="layui-input userName" value="${data.userName}" lay-verify="required" placeholder="请输入用户名称/手机号/邮件">
-					</div>
-				</div>
+    <div class="layui-col-md9 layui-col-xs12">
+        <div class="layui-row layui-col-space10">
+            <div class="layui-col-md9 layui-col-xs7">
+                <input type="text" class="layui-input userId" value="${data.userId}" style="display: none;">
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">用户名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input userName" value="${data.userName}" lay-verify="required"
+                               placeholder="请输入用户名称/手机号/邮件">
+                    </div>
+                </div>
 
-				<div class="layui-form-item magt3">
-					<label class="layui-form-label">用户昵称</label>
-					<div class="layui-input-block">
-						<input type="text" class="layui-input userNickName" value="${data.userNickName!}"  placeholder="请输入用户别名">
-					</div>
-				</div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">用户昵称</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input userNickName" value="${data.userNickName!}"
+                               placeholder="请输入用户别名">
+                    </div>
+                </div>
 
-				<div class="layui-form-item magt3">
-					<label class="layui-form-label">手机号</label>
-					<div class="layui-input-block">
-						<input type="text" class="layui-input userPhone" lay-verify="required" value="${data.phone}" placeholder="请输入手机号">
-					</div>
-				</div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input userPhone" lay-verify="required" value="${data.phone}"
+                               placeholder="请输入手机号">
+                    </div>
+                </div>
 
-				<div class="layui-form-item magt3">
-					<label class="layui-form-label">性别</label>
-					<div class="layui-input-block userSex" data-value="${data.sex}">
-						<input type="radio" name="sex" value="男" title="男" >
-						<input type="radio" name="sex" value="女" title="女">
-						<input type="radio" name="sex" value="保密" title="保密">
-					</div>
-				</div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-block userSex" data-value="${data.sex}">
+                        <input type="radio" name="sex" value="男" title="男">
+                        <input type="radio" name="sex" value="女" title="女">
+                        <input type="radio" name="sex" value="保密" title="保密">
+                    </div>
+                </div>
 
-				<div class="layui-form-item magt3">
-					<label class="layui-form-label">身份证</label>
-					<div class="layui-input-block">
-						<input type="text" class="layui-input userCardNumber" value="${data.userCardNumber}" lay-verify="required" placeholder="请输入身份证">
-					</div>
-				</div>
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">身份证</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input userCardNumber" value="${data.userCardNumber}"
+                               lay-verify="required" placeholder="请输入身份证">
+                    </div>
+                </div>
 
-				<div class="layui-form-item userAddress">
-					<label class="layui-form-label">家庭住址</label>
-					<div class="layui-input-inline">
-						<select name="province" lay-filter="province" class="province" data-value="${data.userProvince}" lay-verify="required">
-							<option value="">请选择市</option>
-							<option value="河南省" selected="selected">河南省</option>
-						</select>
-					</div>
-					<div class="layui-input-inline">
-						<select name="city" lay-filter="city" class="city" data-value="${data.userCity}" lay-verify="required">
-							<option value="">请选择市</option>
-							<option value="信阳市" selected="selected">信阳市</option>
-						</select>
-					</div>
-					<div class="layui-input-inline">
-						<select name="area" lay-filter="area" class="area" data-value="${data.userArea!}" lay-verify="required">
-							<option value="">请选择县/区</option>
-							<option value="浉河区">浉河区</option>
-							<option value="平桥区">平桥区</option>
-							<option value="新区">新区</option>
-						</select>
-					</div>
-				</div>
+                <div class="layui-form-item userAddress">
+                    <label class="layui-form-label">家庭住址</label>
+                    <div class="layui-input-inline">
+                        <select name="province" lay-filter="province" class="province" data-value="${data.userProvince}"
+                                lay-verify="required">
+                            <option value="">请选择市</option>
+                            <option value="河南省" selected="selected">河南省</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="city" lay-filter="city" class="city" data-value="${data.userCity}"
+                                lay-verify="required">
+                            <option value="">请选择市</option>
+                            <option value="信阳市" selected="selected">信阳市</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="area" lay-filter="area" class="area" data-value="${data.userArea!}"
+                                lay-verify="required">
+                            <option value="">请选择县/区</option>
+                            <option value="浉河区">浉河区</option>
+                            <option value="平桥区">平桥区</option>
+                            <option value="新区">新区</option>
+                        </select>
+                    </div>
+                </div>
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">详细街道</label>
-					<div class="layui-input-block">
-						<textarea placeholder="请输入详细街道" lay-verify="require" class="layui-textarea abstract street">${data.userStreet}</textarea>
-					</div>
-				</div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">详细街道</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入详细街道" lay-verify="require" class="layui-textarea abstract street">${data.userStreet}</textarea>
+                    </div>
+                </div>
 
-				<div class="layui-form-item">
-					<label class="layui-form-label">个人介绍</label>
-					<div class="layui-input-block">
-						<textarea placeholder="请输入个人介绍"  class="layui-textarea abstract description">${data.userPersonalSignature!}</textarea>
-					</div>
-				</div>
-			</div>
-			<div class="layui-col-md3 layui-col-xs5">
-				<div class="layui-upload-list thumbBox mag0 magt3">
-					<img class="layui-upload-img thumbImg" src="${data.userHeaderImage!}">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="layui-col-md3 layui-col-xs12">
-		<blockquote class="layui-elem-quote title"><i class="seraph icon-caidan"></i> 角色分配</blockquote>
-		<div class="border category">
-			<div class="roleBox" data-value="${data.roles}">
-				<#list roles as role>
-					<p><input type="checkbox" value="${role.roleId}" title="${role.roleName}" lay-skin="primary" /></p>
-				</#list>
-		</div>
-	</div>
-	<blockquote class="layui-elem-quote title magt10"><i class="layui-icon">&#xe609;</i> 设置</blockquote>
-	<div class="border">
-		<div class="layui-form-item">
-			<label class="layui-form-label">状　态</label>
-			<div class="layui-input-block">
-				<select name="status" lay-verify="required" class="status" data-value="${data.status}">
-					<option value="0">正常</option>
-					<option value="1">待审核</option>
-				</select>
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">邮　件</label>
-			<div class="layui-input-block">
-				<input type="email" class="layui-input userEmail"  placeholder="请输入邮件" value="${data.email!}">
-			</div>
-		</div>
-		<hr class="layui-bg-gray" />
-		<div class="layui-right">
-			<a class="layui-btn layui-btn-sm" lay-filter="editUser" lay-submit><i class="layui-icon">&#xe609;</i>修  改</a>
-		</div>
-	</div>
-	</div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">个人介绍</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入个人介绍" class="layui-textarea abstract description">${data.userPersonalSignature!}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md3 layui-col-xs5">
+                <div class="layui-upload-list thumbBox mag0 magt3">
+                    <img class="layui-upload-img thumbImg" src="${data.userHeaderImage!}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md3 layui-col-xs12">
+        <blockquote class="layui-elem-quote title"><i class="seraph icon-caidan"></i> 角色分配</blockquote>
+        <div class="border category">
+            <div class="roleBox" data-value="${data.roles}">
+                <#list roles as role>
+                <p><input type="checkbox" value="${role.roleId}" title="${role.roleName}" lay-skin="primary"/></p>
+            </
+            #list>
+        </div>
+    </div>
+    <blockquote class="layui-elem-quote title magt10"><i class="layui-icon">&#xe609;</i> 设置</blockquote>
+    <div class="border">
+        <div class="layui-form-item">
+            <label class="layui-form-label">状　态</label>
+            <div class="layui-input-block">
+                <select name="status" lay-verify="required" class="status" data-value="${data.status}">
+                    <option value="0">正常</option>
+                    <option value="1">待审核</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮　件</label>
+            <div class="layui-input-block">
+                <input type="email" class="layui-input userEmail" placeholder="请输入邮件" value="${data.email!}">
+            </div>
+        </div>
+        <hr class="layui-bg-gray"/>
+        <div class="layui-right">
+            <a class="layui-btn layui-btn-sm" lay-filter="editUser" lay-submit><i class="layui-icon">&#xe609;</i>修 改</a>
+        </div>
+    </div>
+    </div>
 </form>
-<script type="text/javascript"  src="/layui/layui.js"></script>
+<script type="text/javascript" src="/layui/layui.js"></script>
 <script type="text/javascript" src="/js/user/edit.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.xyls.core.validate.code;
 
@@ -7,16 +7,17 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * 校验码生成器
- * @author zhailiang
  *
+ * @author zhailiang
  */
 public interface ValidateCodeGenerator {
 
-	/**
-	 * 生成校验码
-	 * @param request
-	 * @return
-	 */
-	ValidateCode generate(ServletWebRequest request);
-	
+    /**
+     * 生成校验码
+     *
+     * @param request
+     * @return
+     */
+    ValidateCode generate(ServletWebRequest request);
+
 }

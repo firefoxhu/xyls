@@ -1,4 +1,5 @@
 package com.xyls.service.impl;
+
 import com.xyls.dto.form.NewsTypeForm;
 import com.xyls.enums.ResponseEnum;
 import com.xyls.exception.UserFormException;
@@ -27,14 +28,14 @@ public class NewsTypeServiceImpl implements NewsTypeService {
 
     @Override
     public Page<NewsType> query(Pageable pageable) {
-        Page<NewsType>  page  = newsTypeRepository.findAll(pageable);
+        Page<NewsType> page = newsTypeRepository.findAll(pageable);
         return page;
     }
 
     @Override
     public void save(NewsTypeForm newsTypeForm, String useName) throws InvocationTargetException, IllegalAccessException {
         NewsType newsType = new NewsType();
-        BeanUtils.copyProperties(newsType,newsTypeForm);
+        BeanUtils.copyProperties(newsType, newsTypeForm);
         newsType.setNewsTypeId(GenKeyUtil.key());
         newsType.setCreateTime(DateUtil.todayDateTime());
         newsType.setCreatePerson(useName);
@@ -43,21 +44,21 @@ public class NewsTypeServiceImpl implements NewsTypeService {
 
     @Override
     public void remove(String ids) {
-        if(StringUtils.isEmpty(ids)){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"id为空异常刷新页面重试！");
+        if (StringUtils.isEmpty(ids)) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "id为空异常刷新页面重试！");
         }
-        for(String item:ids.split(",") ){
+        for (String item : ids.split(",")) {
             newsTypeRepository.delete(item);
         }
     }
 
     @Override
     public void modify(NewsTypeForm newsTypeForm, String useName) throws InvocationTargetException, IllegalAccessException {
-        if(StringUtils.isEmpty(newsTypeForm.getNewsTypeId())){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"所要修改的栏目id为空，请刷新页面重新提交！");
+        if (StringUtils.isEmpty(newsTypeForm.getNewsTypeId())) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "所要修改的栏目id为空，请刷新页面重新提交！");
         }
-        NewsType newsType =newsTypeRepository.findOne(newsTypeForm.getNewsTypeId());
-        BeanUtils.copyProperties(newsType,newsTypeForm);
+        NewsType newsType = newsTypeRepository.findOne(newsTypeForm.getNewsTypeId());
+        BeanUtils.copyProperties(newsType, newsTypeForm);
 
         newsType.setModifyPerson(useName);
         newsType.setModifyTime(DateUtil.todayDateTime());
@@ -66,10 +67,10 @@ public class NewsTypeServiceImpl implements NewsTypeService {
 
     @Override
     public NewsType query(String id) {
-        if(StringUtils.isEmpty(id)){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"id为空异常刷新页面重试！");
+        if (StringUtils.isEmpty(id)) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "id为空异常刷新页面重试！");
         }
-        return   newsTypeRepository.findOne(id);
+        return newsTypeRepository.findOne(id);
     }
 
     @Override
@@ -79,8 +80,8 @@ public class NewsTypeServiceImpl implements NewsTypeService {
 
     @Override
     public List<NewsType> findCategoryByClassId(String id) {
-        if(StringUtils.isEmpty(id)){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"id为空异常刷新页面重试！");
+        if (StringUtils.isEmpty(id)) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "id为空异常刷新页面重试！");
         }
         return newsTypeRepository.findAllByNewsTypeParentId(id);
     }

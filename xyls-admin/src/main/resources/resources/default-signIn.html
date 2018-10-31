@@ -15,39 +15,48 @@
     <h2 align="center">验证码的大小可以传递参数height\width来来控制 </h2>
     <h2 align="center">验证码的生成器可以实现接口ValidateCodeGenerator 并提供名字为imageCodeGenerator可覆盖原来的</h2>
     <h2 align="center">用户名为：username 密码为：password 图片验证码为：imageCode 记住我为：remember-me 这些且不可乱改</h2>
-    <form action="/authentication/form" method="post" style="float: left" >
+    <form action="/authentication/form" method="post" style="float: left">
         <table>
             <tr>
-                <td>用户名:</td><td><input type="text" name="username"></td>
+                <td>用户名:</td>
+                <td><input type="text" name="username"></td>
             </tr>
             <tr>
-                <td>密码:</td><td><input type="password" name="password"></td>
+                <td>密码:</td>
+                <td><input type="password" name="password"></td>
             </tr>
             <tr>
-                <td>图形验证码:</td><td><input type="text" name="imageCode"><img src="/code/image"></td>
+                <td>图形验证码:</td>
+                <td><input type="text" name="imageCode"><img src="/code/image"></td>
             </tr>
             <tr>
-                <td colspan='2'> </td>
+                <td colspan='2'></td>
             </tr>
             <tr>
-                <td colspan="2"><button type="submit">登录</button></td>
+                <td colspan="2">
+                    <button type="submit">登录</button>
+                </td>
             </tr>
         </table>
     </form>
 
-    <form action="/authentication/mobile" method="post" style="float: right" >
+    <form action="/authentication/mobile" method="post" style="float: right">
         <table>
             <tr>
-                <td>手机号:</td><td><input type="text" name="mobile" value="18721663640"></td>
+                <td>手机号:</td>
+                <td><input type="text" name="mobile" value="18721663640"></td>
             </tr>
             <tr>
-                <td>短信验证码:</td><td><input type="text" name="smsCode"><a href="/code/sms?mobile=18721663640 ">发送验证码</a>
+                <td>短信验证码:</td>
+                <td><input type="text" name="smsCode"><a href="/code/sms?mobile=18721663640 ">发送验证码</a>
             </tr>
             <tr>
-                <td colspan='2'> </td>
+                <td colspan='2'></td>
             </tr>
             <tr>
-                <td colspan="2"><button type="submit">登录</button></td>
+                <td colspan="2">
+                    <button type="submit">登录</button>
+                </td>
             </tr>
         </table>
     </form>

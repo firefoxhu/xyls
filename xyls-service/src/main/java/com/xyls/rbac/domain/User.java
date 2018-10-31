@@ -1,4 +1,5 @@
 package com.xyls.rbac.domain;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import java.io.Serializable;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "ls_user")
-public class User implements Serializable{
+public class User implements Serializable {
 
     @Id
     @Column(length = 32)

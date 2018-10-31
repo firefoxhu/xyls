@@ -55,7 +55,7 @@ public class NewsType {
      * 类型导航url
      */
     @Column(length = 64)
-    private String  newsTypeNavigationUrl;
+    private String newsTypeNavigationUrl;
 
 
     /**

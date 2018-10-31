@@ -11,7 +11,7 @@ public class FileResponse {
 
     private String fileName;
 
-    private long  fileSize;
+    private long fileSize;
 
     private String fileHome;
 

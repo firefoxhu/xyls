@@ -1,4 +1,5 @@
 package com.xyls.dto.form;
+
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 

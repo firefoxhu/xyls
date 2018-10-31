@@ -4,6 +4,7 @@ import com.xyls.rbac.annotation.Menu;
 import com.xyls.rbac.domain.SysResource;
 import com.xyls.utils.DateUtil;
 import com.xyls.utils.GenKeyUtil;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 public class AssembleResource {
 
 
-    public static List<SysResource> assembleAnnotationMenuData(Class<?> clazz){
+    public static List<SysResource> assembleAnnotationMenuData(Class<?> clazz) {
 
         List<SysResource> sysResources = new ArrayList<>();
 
@@ -31,18 +32,18 @@ public class AssembleResource {
         //子菜单
         Method[] methods = clazz.getMethods();
 
-        for(Method m:methods){
-            if(m.isAnnotationPresent(Menu.class)){
+        for (Method m : methods) {
+            if (m.isAnnotationPresent(Menu.class)) {
                 Menu menu = m.getAnnotation(Menu.class);
                 SysResource childResource = new SysResource();
                 childResource.setResourceId(GenKeyUtil.key());
                 childResource.setResourceName(menu.name());
 
-                if(menu.uri().equals("main")){
+                if (menu.uri().equals("main")) {
                     System.out.println(1);
                 }
 
-                childResource.setResourceUrl(parentResource.getResourceUrl()+menu.uri());
+                childResource.setResourceUrl(parentResource.getResourceUrl() + menu.uri());
                 childResource.setResourceType(menu.type().toString());
                 childResource.setDescription(menu.description());
                 childResource.setCreateTime(DateUtil.todayDateTime());

@@ -30,7 +30,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Page<Shop> query(Pageable pageable) {
-        Page<Shop>  page  = shopRepository.findAll(pageable);
+        Page<Shop> page = shopRepository.findAll(pageable);
         return page;
     }
 
@@ -56,7 +56,7 @@ public class ShopServiceImpl implements ShopService {
 
         Shop shop = new Shop();
 
-        BeanUtils.copyProperties(shop,shopForm);
+        BeanUtils.copyProperties(shop, shopForm);
         shop.setUserId(user.getUserId());
         shop.setId(GenKeyUtil.key());
         shop.setCreatePerson(userId);
@@ -68,10 +68,10 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public void remove(String ids) {
-        if(org.apache.commons.lang3.StringUtils.isEmpty(ids)){
-            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(),"id为空异常刷新页面重试！");
+        if (org.apache.commons.lang3.StringUtils.isEmpty(ids)) {
+            throw new UserFormException(ResponseEnum.ILLEGAL_PARAMS.getCode(), "id为空异常刷新页面重试！");
         }
-        for(String item:ids.split(",") ){
+        for (String item : ids.split(",")) {
             shopRepository.delete(item);
         }
     }
@@ -84,9 +84,9 @@ public class ShopServiceImpl implements ShopService {
         }
 
 
-        Shop shop =shopRepository.findOne(shopForm.getId());
+        Shop shop = shopRepository.findOne(shopForm.getId());
 
-        BeanUtils.copyProperties(shop,shopForm);
+        BeanUtils.copyProperties(shop, shopForm);
         shop.setModifyTime(DateUtil.todayDateTime());
         shop.setModifyPerson(userId);
         shop.setModifyDescription("修改门店信息");

@@ -1,4 +1,5 @@
 package com.xyls.service.impl;
+
 import com.xyls.dto.form.PostForm;
 import com.xyls.dto.support.ResultGrid;
 import com.xyls.model.Post;
@@ -19,7 +20,7 @@ import javax.persistence.criteria.Predicate;
 import java.lang.reflect.InvocationTargetException;
 
 @Service
-public class PostServiceImpl implements PostService{
+public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepository postRepository;
@@ -29,9 +30,9 @@ public class PostServiceImpl implements PostService{
     public ResultGrid list(int page, int size, String condition) {
 
 
-        Page<Post> postPage=postRepository.findAll(new PageRequest(page, size,new Sort(Sort.Direction.DESC,"createTime","top")));
+        Page<Post> postPage = postRepository.findAll(new PageRequest(page, size, new Sort(Sort.Direction.DESC, "createTime", "top")));
 
-        return new ResultGrid(0,"",Integer.parseInt(String.valueOf(postPage.getTotalElements())),postPage.getContent());
+        return new ResultGrid(0, "", Integer.parseInt(String.valueOf(postPage.getTotalElements())), postPage.getContent());
     }
 
     @Override
@@ -58,9 +59,9 @@ public class PostServiceImpl implements PostService{
     @Override
     public void top(String postId) {
         Post post = postRepository.findOne(postId);
-        if(post.getTop().equals("0")){
+        if (post.getTop().equals("0")) {
             post.setTop("1");
-        }else {
+        } else {
             post.setTop("0");
         }
         postRepository.save(post);
@@ -70,9 +71,9 @@ public class PostServiceImpl implements PostService{
     @Override
     public void status(String postId) {
         Post post = postRepository.findOne(postId);
-        if(post.getStatus().equals("0")){
+        if (post.getStatus().equals("0")) {
             post.setStatus("1");
-        }else {
+        } else {
             post.setStatus("0");
         }
         postRepository.save(post);

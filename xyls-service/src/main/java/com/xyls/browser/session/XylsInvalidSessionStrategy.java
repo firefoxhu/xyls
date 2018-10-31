@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.xyls.browser.session;
 
@@ -14,20 +14,19 @@ import org.springframework.security.web.session.InvalidSessionStrategy;
 
 /**
  * 默认的session失效处理策略
- * 
- * @author zhailiang
  *
+ * @author zhailiang
  */
 public class XylsInvalidSessionStrategy extends AbstractSessionStrategy implements InvalidSessionStrategy {
 
-	public XylsInvalidSessionStrategy(SecurityProperties securityProperties) {
-		super(securityProperties);
-	}
+    public XylsInvalidSessionStrategy(SecurityProperties securityProperties) {
+        super(securityProperties);
+    }
 
-	@Override
-	public void onInvalidSessionDetected(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		onSessionInvalid(request, response);
-	}
+    @Override
+    public void onInvalidSessionDetected(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        onSessionInvalid(request, response);
+    }
 
 }

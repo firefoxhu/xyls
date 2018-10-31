@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class Shop {
 
     /**
-     *新闻id
+     * 新闻id
      */
     @Id
     @Column(length = 32)

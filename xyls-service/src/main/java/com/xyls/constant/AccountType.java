@@ -6,14 +6,14 @@ package com.xyls.constant;
  */
 public interface AccountType {
 
-    String LOGIN_BY_PHONE="1";
+    String LOGIN_BY_PHONE = "1";
 
-    String LOGIN_BY_EMAIL="2";
+    String LOGIN_BY_EMAIL = "2";
 
-    String LOGIN_BY_USER_ID="3";
+    String LOGIN_BY_USER_ID = "3";
 
-    String LOGIN_BY_ACCOUNT_ID="4";
+    String LOGIN_BY_ACCOUNT_ID = "4";
 
-    String LOGIN_BY_OPEN_ID="5";
+    String LOGIN_BY_OPEN_ID = "5";
 
 }

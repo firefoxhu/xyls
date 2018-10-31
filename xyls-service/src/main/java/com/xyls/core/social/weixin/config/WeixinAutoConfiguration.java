@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.xyls.core.social.weixin.config;
 
@@ -18,35 +18,34 @@ import org.springframework.web.servlet.View;
 
 /**
  * 微信登录配置
- * 
- * @author zhailiang
  *
+ * @author zhailiang
  */
 @Configuration
 @ConditionalOnProperty(prefix = "xyls.security.social.weixin", name = "app-id")
 public class WeixinAutoConfiguration extends SocialAutoConfigurerAdapter {
 
-	@Autowired
-	private SecurityProperties securityProperties;
+    @Autowired
+    private SecurityProperties securityProperties;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter
-	 * #createConnectionFactory()
-	 */
-	@Override
-	protected ConnectionFactory<?> createConnectionFactory() {
-		WeixinProperties weixinConfig = securityProperties.getSocial().getWeixin();
-		return new WeixinConnectionFactory(weixinConfig.getProviderId(), weixinConfig.getAppId(),
-				weixinConfig.getAppSecret());
-	}
-	
-	@Bean({"connect/weixinConnect", "connect/weixinConnected"})
-	@ConditionalOnMissingBean(name = "weixinConnectedView")
-	public View weixinConnectedView() {
-		return new XylsConnectView();
-	}
-	
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter
+     * #createConnectionFactory()
+     */
+    @Override
+    protected ConnectionFactory<?> createConnectionFactory() {
+        WeixinProperties weixinConfig = securityProperties.getSocial().getWeixin();
+        return new WeixinConnectionFactory(weixinConfig.getProviderId(), weixinConfig.getAppId(),
+                weixinConfig.getAppSecret());
+    }
+
+    @Bean({"connect/weixinConnect", "connect/weixinConnected"})
+    @ConditionalOnMissingBean(name = "weixinConnectedView")
+    public View weixinConnectedView() {
+        return new XylsConnectView();
+    }
+
 }

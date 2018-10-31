@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "sys_resource")
 @ToString
-public class SysResource implements Serializable{
+public class SysResource implements Serializable {
 
     @Id
     @Column(length = 32)

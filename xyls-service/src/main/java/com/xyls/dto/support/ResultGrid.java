@@ -16,10 +16,10 @@ public class ResultGrid {
 
     private String msg;
 
-    private  long count;
+    private long count;
 
 
-    private Object  data;
+    private Object data;
 
 
 }

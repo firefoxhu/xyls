@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.xyls.core.authentication.mobile;
 
@@ -20,46 +20,45 @@ import java.util.UUID;
 
 /**
  * 短信登录配置
- * 
- * @author zhailiang
  *
+ * @author zhailiang
  */
 @Component
 public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-	
-	@Autowired
-	private AuthenticationSuccessHandler xylsAuthenticationSuccessHandler;
-	
-	@Autowired
-	private AuthenticationFailureHandler xylsAuthenticationFailureHandler;
-	
-	@Autowired
-	private UserDetailsService userDetailsService;
-	
-	@Autowired
-	private PersistentTokenRepository persistentTokenRepository;
-	
-	/* (non-Javadoc)
-	 * @see org.springframework.security.config.annotation.SecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.SecurityBuilder)
-	 */
-	@Override
-	public void configure(HttpSecurity http) throws Exception {
-		
-		SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter();
-		smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-		smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(xylsAuthenticationSuccessHandler);
-		smsCodeAuthenticationFilter.setAuthenticationFailureHandler(xylsAuthenticationFailureHandler);
-		String key = UUID.randomUUID().toString();
-		smsCodeAuthenticationFilter.setRememberMeServices(new PersistentTokenBasedRememberMeServices(key, userDetailsService, persistentTokenRepository));
-		
-		SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider();
-		smsCodeAuthenticationProvider.setUserDetailsService(userDetailsService);
-		
-		http.authenticationProvider(smsCodeAuthenticationProvider)
-			.addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-		
+
+    @Autowired
+    private AuthenticationSuccessHandler xylsAuthenticationSuccessHandler;
+
+    @Autowired
+    private AuthenticationFailureHandler xylsAuthenticationFailureHandler;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private PersistentTokenRepository persistentTokenRepository;
+
+    /* (non-Javadoc)
+     * @see org.springframework.security.config.annotation.SecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.SecurityBuilder)
+     */
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+
+        SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter();
+        smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
+        smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(xylsAuthenticationSuccessHandler);
+        smsCodeAuthenticationFilter.setAuthenticationFailureHandler(xylsAuthenticationFailureHandler);
+        String key = UUID.randomUUID().toString();
+        smsCodeAuthenticationFilter.setRememberMeServices(new PersistentTokenBasedRememberMeServices(key, userDetailsService, persistentTokenRepository));
+
+        SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider();
+        smsCodeAuthenticationProvider.setUserDetailsService(userDetailsService);
+
+        http.authenticationProvider(smsCodeAuthenticationProvider)
+                .addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
 //		
-		
-	}
+
+    }
 
 }

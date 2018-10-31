@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.xyls.core.social.qq.config;
 
@@ -14,26 +14,25 @@ import org.springframework.social.connect.ConnectionFactory;
 
 /**
  * @author zhailiang
- *
  */
 @Configuration
 @ConditionalOnProperty(prefix = "xyls.security.social.qq", name = "app-id")
 public class QQAutoConfig extends SocialAutoConfigurerAdapter {
 
-	@Autowired
-	private SecurityProperties securityProperties;
+    @Autowired
+    private SecurityProperties securityProperties;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter
-	 * #createConnectionFactory()
-	 */
-	@Override
-	protected ConnectionFactory<?> createConnectionFactory() {
-		QQProperties qqConfig = securityProperties.getSocial().getQq();
-		return new QQConnectionFactory(qqConfig.getProviderId(), qqConfig.getAppId(), qqConfig.getAppSecret());
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter
+     * #createConnectionFactory()
+     */
+    @Override
+    protected ConnectionFactory<?> createConnectionFactory() {
+        QQProperties qqConfig = securityProperties.getSocial().getQq();
+        return new QQConnectionFactory(qqConfig.getProviderId(), qqConfig.getAppId(), qqConfig.getAppSecret());
+    }
 
 }

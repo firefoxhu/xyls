@@ -17,11 +17,11 @@ public class FileUploadController {
     private FileOperator fileOperator;
 
     @PostMapping("upload")
-    public SimpleResponse upload(@RequestParam("file")MultipartFile file){
+    public SimpleResponse upload(@RequestParam("file") MultipartFile file) {
 
         try {
-           return SimpleResponse.success(fileOperator.transfer(file,"image"));
-        }catch (Exception e){
+            return SimpleResponse.success(fileOperator.transfer(file, "image"));
+        } catch (Exception e) {
             e.printStackTrace();
             return SimpleResponse.failure(e.getMessage());
         }
@@ -30,17 +30,15 @@ public class FileUploadController {
 
 
     @GetMapping("/download")
-    public void download(HttpServletRequest request){
+    public void download(HttpServletRequest request) {
 
-        try{
+        try {
             fileOperator.download(new ServletWebRequest(request));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
-
 
 
 }

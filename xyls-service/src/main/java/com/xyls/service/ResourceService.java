@@ -10,7 +10,8 @@ import java.util.List;
 public interface ResourceService {
 
     /**
-     获取所有的角色信息
+     * 获取所有的角色信息
+     *
      * @param pageable
      * @return
      */
@@ -18,6 +19,7 @@ public interface ResourceService {
 
     /**
      * 新增角色
+     *
      * @param resourceForm
      * @param userId
      */
@@ -25,15 +27,16 @@ public interface ResourceService {
 
     /**
      * 删除一条或者多条信息
+     *
      * @param ids
      */
-    void  remove(String ids);
+    void remove(String ids);
 
 
     /**
      * 修改信息
      */
-    void  modify(ResourceForm resourceForm, String userId) throws Exception;
+    void modify(ResourceForm resourceForm, String userId) throws Exception;
 
     /**
      * 根据id查找
@@ -42,8 +45,9 @@ public interface ResourceService {
 
     /**
      * 初始化数据批量
+     *
      * @param sysResources
      */
-    void  batch(List<SysResource> sysResources);
+    void batch(List<SysResource> sysResources);
 
 }
